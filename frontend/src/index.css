@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 5px; 
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: white; 
+    border-radius: 10px; 
+  }
+  .slide-img{
+    height: 100vh;
+  }
+  .font-sans {
+    font-family: 'Roboto', sans-serif;
+  }
+  .recharge1{
+    display: block;
+  }
+  .recharg2{
+    display: none;
+  }
+  .pageBox:hover p{
+    text-decoration: underline;
+  }
+  .menu{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    box-shadow: 2px 2px 20px 2px lightgray;
+  }
+  .menu-list:hover {
+    color: #E91E63;
+  }
+  .rounded-border{
+    border-top-left-radius: 30px ;
+    border-top-right-radius: 30px ;
+  }
+  .rounded-border2{
+    border-top-left-radius:  10px ;
+    border-top-right-radius: 10px ;
+  }
+  .links{
+    background-color: white;
+    transition: 0.34s;
+  }
+  .links:hover{
+    background-color: rgba(211, 211, 211, 0.479);
+    color: rgb(95, 95, 95);
+  }
+  .top-notify{
+    z-index: 1111;
+    box-shadow: 1px 1px 10px 1px lightgray;
+  }
+  .recharge-data{
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 7px;
+  }
+  .option{
+    width: 100%;
+  }
+  .active {
+    color: #E91E63; 
+  }
+  .gradient-bg {
+    background: linear-gradient(to right, #ff7e5f, #f5057d);
+  }
+  
+
+
+
+  /* ////////// media querry ///////  */
+
+  @media screen and (max-width: 1000px) {
+    .slide-img{
+        height: 80vh;
+    }
+  }
+  @media screen and (max-width:400px) {
+    .menu-child{
+        width: 250px;
+    }
+  }
+@media screen and (max-width:345px) {
+    .recharge1{
+        display: none;
+    }
+    .recharg2{
+        display: flex;
+    }
+}
+@media screen and (max-width: 750px) {
+    .slide-img{
+        height: 60vh;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .slide-img{
+        height: 40vh;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .slide-img{
+        height: 27vh;
+    }
+  }
+  @media screen and (max-width: 370px) {
+    .slide-img{
+        height: 23vh;
+    }
+  }
