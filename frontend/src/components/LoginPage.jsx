@@ -34,13 +34,17 @@ const LoginPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+       
         
         // Assuming the API returns the user ID and token, you can store them in localStorage
-        localStorage.setItem('currentUserId', JSON.stringify(data.user));
-        localStorage.setItem('token', data.accessToken);
-        toast.success("Welcome Back");
-        navigate('/');
+        if(data.success){
+          localStorage.setItem('currentUserId', JSON.stringify(data.user));
+          localStorage.setItem('token', data.accessToken);
+          toast.success("Welcome Back");
+          navigate('/');
+        }else{
+          toast.error("Invalid email or password");
+        }
       } else {
         toast.error("Invalid email or password");
       }
