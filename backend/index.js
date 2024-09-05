@@ -1,6 +1,6 @@
 require('dotenv').config();
 const  mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/supermall");
+mongoose.connect(process.env.MONGO_URI);
 const express  = require('express');
 const app = express();
 const cors = require('cors')
@@ -15,12 +15,11 @@ app.use(cors())
 
 
 app.use('/api', authRoute);
-app.use('/api', planRoute);
+app.use('/api', planRoute); 
 app.use('/api/v1/product' , productRoute);
 
 
-const port = process.env.SERVER_PORT | 3000;
-// console.log(process.env.SERVER_PORT);
+const port = process.env.SERVER_PORT;
 app.listen(port , ()=>{ 
     console.log("server is runing on port : " + port);
 });

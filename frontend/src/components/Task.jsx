@@ -177,7 +177,7 @@ const Task = () => {
         'Authorization': `Bearer ${token}`
       };
 
-      const response = await fetch('http://localhost:3000/api/v1/product/checkout', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/checkout`, {
         method: 'POST',
         headers: headers,
         body: JSON.stringify(body)
@@ -213,7 +213,7 @@ const Task = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/product/orders?status=paid');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`);
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }

@@ -66,7 +66,7 @@ const signupUser = async (req, res) => {
 
 
 const gernateAccessToken = async (user) => {
-    const token = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, { expiresIn: "30d" });
+    const token = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, { expiresIn: "10d" });
     return token;
 }
 

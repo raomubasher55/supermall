@@ -30,7 +30,7 @@ const BankForm = () => {
     // Fetch existing bank details when the component mounts
     const fetchBankDetails = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

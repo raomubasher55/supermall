@@ -10,7 +10,7 @@ const Fail = () => {
   useEffect(() => {
     const updatePaymentStatus = async (status) => {
       try {
-        const response = await fetch('http://localhost:3000/api/v1/product/update-purchase', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/update-purchase`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId, status }),
