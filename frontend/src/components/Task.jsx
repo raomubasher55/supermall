@@ -25,7 +25,7 @@ const Task = () => {
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(false);
   const [token, setToken] = useState();
-  const [task, setTask] = useState(2);
+  const [task, setTask] = useState(1); 
   const [orderDetail, setOrderDetail] = useState();
   const [showModal, setShowModal] = useState(false);
 
@@ -213,13 +213,19 @@ const Task = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }
 
         const result = await response.json();
-        // console.log(result.orders);
+        console.log(result);
 
         const maxTaskNumber = result.orders.reduce((max, order) => order.task > max ? order.task : max, 0);
         setTask(maxTaskNumber)

@@ -72,7 +72,7 @@ router.post('/checkout',isLogined ,productController.createPayment);
 
 router.post('/update-purchase' , productController.updatePurchase);
 
-router.get('/orders' , productController.getAllOrder);
+router.get('/orders' , isLogined, productController.getAllOrder);
 router.post('/withdraw' ,isLogined , productController.withdraw);
 
 

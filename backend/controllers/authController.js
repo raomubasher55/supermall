@@ -42,10 +42,10 @@ const signupUser = async (req, res) => {
             email,
             password: hashPassword,
             mobile,
-            bankDetails: bankDetails || {},  // Provide empty object if not included
-            currentPlan: currentPlan || null, // Provide default if not included, or handle accordingly
-            role: 0, // Default role
-            balance: 0 // Default balance
+            bankDetails: {},  
+            currentPlan: currentPlan || null, 
+            role: 0, 
+            balance: 0
         });
 
         const userData = await user.save();
@@ -190,7 +190,7 @@ const logout = async (req, res) => {
     }
 };
 
-    const bankDetail = async (req, res) => {
+const bankDetail = async (req, res) => {
         try {
             console.log(req.body);
             

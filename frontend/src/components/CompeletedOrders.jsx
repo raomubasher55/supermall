@@ -8,7 +8,13 @@ const CompletedOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid` , {
+          method:"GET",
+          headers:{
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }

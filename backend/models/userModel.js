@@ -49,7 +49,6 @@ const userSchema = new mongoose.Schema(
       accountNumber: {
         type: String,
         required: false,
-        unique: true,
         trim: true,
       },
       emailAddress: {
@@ -77,7 +76,7 @@ const userSchema = new mongoose.Schema(
     },
     currentPlan: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Plan',
+      ref: 'Plan', 
       required: false, // Make it optional
   },
     role: {

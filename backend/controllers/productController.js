@@ -393,14 +393,27 @@ const updatePurchase = async (req, res) => {
 
 //Get all Order
 const getAllOrder = async (req, res) => {
-  const { status } = req.query;
+  const { status } = req.query; // Get the status from query params
+  const userId = req.user.user._id; // Assuming req.user contains the logged-in user info
+
   try {
-    const orders = await Purchase.find({ status: status });
-    res.json({ success: true, orders });
+    console.log('Status:', status); // Log status
+    console.log('User ID:', userId); // Log user ID
+
+    // Fetch orders for the logged-in user and filter by status (paid)
+    const orders = await Purchase.find({ status: status, userId: userId });
+
+
+    console.log('Orders Found:', orders); // Log the fetched orders
+
+    res.status(200).json({ success: true, orders });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Server error" });
+    console.error('Error fetching orders:', error); // Log the error for debugging
+    res.status(500).json({ success: false, message: "Server error", error: error.message });
   }
 };
+
+
 
 const withdraw = async (req, res) => {
   {

@@ -29,6 +29,8 @@ export default function Home() {
             },
           });
           const userData = await response.json();
+          console.log(userData);
+          
           setUser(userData?.data?.user);
         } catch (error) {
           console.error('Error fetching user data:', error);

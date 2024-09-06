@@ -8,12 +8,20 @@ const UnpaidOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=unpaid`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=unpaid` , {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch orders');
         }
 
         const result = await response.json();
+        console.log(result);
+        
         setOrders(result.orders);
       } catch (error) {
         console.error('Error fetching orders:', error);
