@@ -11,6 +11,7 @@ const SignUpPage = () => {
     password: '',
     confirmPassword: '',
     mobile: '',
+    accountNumber: ''
   });
 
   const handleChange = (e) => {
@@ -28,7 +29,7 @@ const SignUpPage = () => {
       return;
     }
 
-    const { name, email, password, mobile } = formData;
+    const { name, email, password, mobile , accountNumber } = formData;
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
@@ -36,7 +37,7 @@ const SignUpPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password, mobile }),
+        body: JSON.stringify({ name, email, password, mobile , accountNumber }),
       });
       
       const data = await response.json();
@@ -96,6 +97,17 @@ const SignUpPage = () => {
               type="text"
               name="mobile"
               value={formData.mobile}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border rounded-md"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Account Number</label>
+            <input
+              type="text"
+              name="mobile"
+              value={formData.accountNumber}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-md"
               required
