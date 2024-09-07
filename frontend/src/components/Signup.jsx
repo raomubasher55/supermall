@@ -106,7 +106,7 @@ const SignUpPage = () => {
             <label className="block text-gray-700">Account Number</label>
             <input
               type="text"
-              name="mobile"
+              name="accountNumber"
               value={formData.accountNumber}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-md"
