@@ -21,11 +21,7 @@ app.use(express.static('public'));
 // CORS setup: allow specific origins based on environment
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = process.env.NODE_ENV === 'production' 
-      ? ['https://supermall.digital']
-      : ['https://supermall.digital', 'http://localhost:5173'];
-
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (origin === 'https://supermall.digital' || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
@@ -35,6 +31,7 @@ const corsOptions = {
   allowedHeaders: ['Authorization', 'Content-Type'],
   credentials: true,
 };
+
 
 app.use(cors(corsOptions));
 
