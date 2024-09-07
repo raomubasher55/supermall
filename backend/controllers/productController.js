@@ -324,8 +324,8 @@ const createPayment = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `http://localhost:5173/fail?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `https://supermall.digital/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://supermall.digital/fail?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     // Save the product with 'unpaid' status
