@@ -10,13 +10,15 @@ import { FaAddressCard } from "react-icons/fa";
 import { IoMdUnlock } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 import { FaPowerOff } from "react-icons/fa6";
+import { IoLayers } from "react-icons/io5";
 import Userdetail from './Userdetail';
 import Menu from '../components/Menu'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function User() {
-   const [user, setUser] = useState()
+   const [user, setUser] = useState();
+   const navigate = useNavigate();
 
    const alertMessage = () => {
       alert("Your current level is an experience account and you can't participate.");
@@ -84,10 +86,10 @@ export default function User() {
 
             {/* link 2  */}
 
-            <Link to={'/all-orders'} className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2' onClick={alertMessage}>
+            <Link to={'/all-orders'} className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2' a>
                <div className='w-auto h-full flex justify-between items-center'>
                   <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                     <TbUsersGroup />
+                     <IoLayers  />
                   </div>
                   <h1 className='ml-3 font-medium'>Orders</h1>
                </div>
@@ -238,7 +240,7 @@ export default function User() {
 
             {/* link  12*/}
 
-            <Link to={'/'} className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+            <div onClick={()=>{navigate('/login'); localStorage.clear('token')}} className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                <div className='w-auto h-full flex justify-between items-center'>
                   <div className='w-[50px] h-[50px] bg-[#f3ecee] rounded-md flex justify-center items-center text-xl'>
                      <FaPowerOff />
@@ -247,7 +249,7 @@ export default function User() {
                </div>
 
                <MdKeyboardArrowRight className='text-2xl' />
-            </Link>
+            </div>
 
 
             <div className='empty mt-[50px] h-[70px]'></div>

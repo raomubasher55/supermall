@@ -212,6 +212,7 @@ const Task = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
+      setLoader(true); 
       try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`,{
           method: 'GET',
@@ -225,13 +226,14 @@ const Task = () => {
         }
 
         const result = await response.json();
-        console.log(result);
 
         const maxTaskNumber = result.orders.reduce((max, order) => order.task > max ? order.task : max, 0);
         setTask(maxTaskNumber)
               
       } catch (error) {
         console.error('Error fetching orders:', error);
+      } finally{
+        setLoader(false);
       }
     };
     fetchOrders();

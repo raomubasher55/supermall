@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from './ProductCard/Loader';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
   const [formData, setFormData] = useState({
     emailOrNumber: '',
     password: '',
@@ -19,7 +21,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoader(true);
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
         method: 'POST',
@@ -34,15 +36,15 @@ const LoginPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-       
-        
+
+
         // Assuming the API returns the user ID and token, you can store them in localStorage
-        if(data.success){
+        if (data.success) {
           localStorage.setItem('currentUserId', JSON.stringify(data.user));
           localStorage.setItem('token', data.accessToken);
-          toast.success("Welcome Back");
           navigate('/');
-        }else{
+          toast.success("Welcome Back");
+        } else {
           toast.error("Invalid email or password");
         }
       } else {
@@ -51,59 +53,64 @@ const LoginPage = () => {
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
       console.error('Login error:', error);
+    } finally {
+      setLoader(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center gradient-bg pl-2 pr-2">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6" style={{ color: '#DB2252' }}>
-          Login
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email or Number</label>
-            <input
-              type="text"
-              name="emailOrNumber"
-              value={formData.emailOrNumber}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
-              required
-            />
-          </div>
-          <div className="flex justify-between items-center mb-6">
-            <button
-              type="submit"
-              className="w-full bg-[#DB2252] text-white px-4 py-2 rounded-md hover:bg-[#b91c46] transition duration-300"
-            >
-              Login
-            </button>
-          </div>
-          <div className="text-center">
-            <button
-              type="button"
-              className="text-[#DB2252] hover:underline"
-              onClick={() => navigate('/signup')}
-            >
-              Don't have an account? Sign Up
-            </button>
-          </div>
-        </form>
-        <ToastContainer />
+    <>
+      {loader && <Loader />}
+      <div className="min-h-screen flex items-center justify-center gradient-bg pl-2 pr-2">
+        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+          <h2 className="text-2xl font-bold text-center mb-6" style={{ color: '#DB2252' }}>
+            Login
+          </h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700">Email or Number</label>
+              <input
+                type="text"
+                name="emailOrNumber"
+                value={formData.emailOrNumber}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-md"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Password</label>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded-md"
+                required
+              />
+            </div>
+            <div className="flex justify-between items-center mb-6">
+              <button
+                type="submit"
+                className="w-full bg-[#DB2252] text-white px-4 py-2 rounded-md hover:bg-[#b91c46] transition duration-300"
+              >
+                Login
+              </button>
+            </div>
+            <div className="text-center">
+              <button
+                type="button"
+                className="text-[#DB2252] hover:underline"
+                onClick={() => navigate('/signup')}
+              >
+                Don't have an account? Sign Up
+              </button>
+            </div>
+          </form>
+          <ToastContainer />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

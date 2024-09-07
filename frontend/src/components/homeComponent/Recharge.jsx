@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../ProductCard/Loader';
 
 
 
@@ -13,7 +14,8 @@ export default function Recharge() {
   const [inputValue, setInputValue] = useState('');
   const [selectedRadio, setSelectedRadio] = useState('');
   const [loader, setLoader] = useState(false);
-  const [token, setToken] = useState()
+  const [token, setToken] = useState();
+
 
 
   const Amount = [
@@ -42,14 +44,12 @@ export default function Recharge() {
     try {
       setLoader(true); // Start the loader before starting the async operation
 
-      const stripe = await loadStripe('pk_test_51PrdT1P3NC7isVfIIwTTHH32Z5PnhyGQLbKy1k9XJYCDHqyxiA4uQxBuXRTmLAcEuYhp5KEcRT0dAu3GfznZpBwg00wCF0ALII');
+      const stripe = await loadStripe('pk_test_51PsqrxFXuPSbCmw16A3R5QwCbbPRB0hF3aOP836NDXiPjDpCS2t0wBHpq8W16jeezBsZgBPpm2jAQBX6kkI9a1fp0099A2A7x7');
 
       const body = {
         package: number
       };
       
-      
-
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/checkout`, {
         method: 'POST',
         headers: { 
@@ -92,6 +92,8 @@ export default function Recharge() {
   }, [])
 
   return (
+    <>
+    {loader && <Loader/>}
     <div className="flex flex-col items-center bg-white overflow-hidden">
       <div className="fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl">
         <div onClick={() => navigate(-1)}>
@@ -127,32 +129,9 @@ export default function Recharge() {
           ))}
         </div>
 
-        {/* radio input  */}
-        <div className="flex items-center justify-between w-max mt-3">
-          <input
-            type="radio"
-            id="radio1"
-            name="recharge"
-            value="903"
-            checked={selectedRadio === '903'}
-            onChange={() => setSelectedRadio('903')}
-            className="form-radio"
-          />
-          <label htmlFor="radio1" className="ml-2">903</label>
-        </div>
+    
 
-        <div className="flex items-center justify-between w-max mt-3">
-          <input
-            type="radio"
-            id="radio2"
-            name="recharge"
-            value="155"
-            checked={selectedRadio === '155'}
-            onChange={() => setSelectedRadio('155')}
-            className="form-radio"
-          />
-          <label htmlFor="radio2" className="ml-2">155</label>
-        </div>
+     
 
         <div className="w-full shadow h-auto mt-4 p-4 mb-3 rounded-lg">
           <p>1 : If the recharge fails due to busy conditions, please choose another recharge channel to recharge your account.</p>
@@ -164,5 +143,6 @@ export default function Recharge() {
       <button onClick={() => handleOnCheckout(inputValue)} className='w-[90%] h-[45px] bg-[#E91E63] mt-3 rounded-3xl text-white font-medium'>RECHARGE</button>
       <ToastContainer />
     </div>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { MdNotificationsActive } from "react-icons/md";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../components/ProductCard/Loader';
 
 const BankForm = () => {
   const [formValues, setFormValues] = useState({
@@ -25,6 +26,8 @@ const BankForm = () => {
     ifsc: false,
     password: false
   });
+  const [loader, setLoader] = useState(false)
+
 
   useEffect(() => {
     // Fetch existing bank details when the component mounts
@@ -36,11 +39,11 @@ const BankForm = () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
         });
-  
+
         const userData = await response.json();
         const data = userData?.data?.bankDetails;
-  
-  
+
+
         if (data) {
           setFormValues({
             bankName: data.bankName || "",
@@ -58,10 +61,10 @@ const BankForm = () => {
         toast.error('An error occurred while fetching bank details.');
       }
     };
-  
+
     fetchBankDetails();
   }, []);
-  
+
 
   const handleInputChange = (event) => {
     const { id, value } = event.target;
@@ -86,7 +89,7 @@ const BankForm = () => {
       ifsc: formValues.ifsc,
       password: formValues.password
     };
-
+    setLoader(true)
     const response = await fetch('http://localhost:3000/api/bank-detail', {
       method: 'PUT', // Use PUT for update
       headers: {
@@ -95,14 +98,13 @@ const BankForm = () => {
       },
       body: JSON.stringify(bankDetails),
     });
-
+    setLoader(false);
     const data = await response.json();
 
     if (data.success) {
       toast.success('Bank details updated successfully!');
     } else {
       const errors = data.message.split(', ').map(error => error.split(': ')[1]);
-
       // Show only the first error message
       if (errors.length > 0) {
         toast.error(errors[0]);
@@ -113,6 +115,8 @@ const BankForm = () => {
   };
 
   return (
+    <>
+    {loader && <Loader/>}
     <div className='flex flex-col items-center bg-white overflow-hidden'>
       <div className='fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl'>
         <Link to={'/user'}>
@@ -186,6 +190,7 @@ const BankForm = () => {
       </div>
       <ToastContainer />
     </div>
+    </>
   );
 }
 

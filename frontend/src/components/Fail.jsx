@@ -21,7 +21,6 @@ const Fail = () => {
         }
   
         const result = await response.json();
-        console.log('Payment status updated:', result);
       } catch (error) {
         console.error('Error updating payment status:', error);
       }
@@ -35,8 +34,8 @@ const Fail = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg text-center">
-        <h1 className="text-3xl font-bold text-red-600 mb-4">Payment Failed or Canceled</h1>
+      <div className="bg-white md:p-8 p-3 rounded-lg shadow-lg max-w-lg text-center">
+        <h1 className="md:text-3xl text-lg font-bold text-red-600 mb-4">Payment Failed or Canceled</h1>
         <p className="text-gray-700 mb-6">
           Unfortunately, your payment was not successful. Please try again or contact support if you continue to experience issues.
         </p>

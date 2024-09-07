@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Loader from './ProductCard/Loader';
 
 const CompletedOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [loader, setLoader] = useState(false)
   const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        setLoader(true)
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid` , {
           method:"GET",
           headers:{
@@ -23,6 +26,8 @@ const CompletedOrders = () => {
         setOrders(result.orders);
       } catch (error) {
         console.error('Error fetching orders:', error);
+      }finally{
+        setLoader(false)
       }
     };
 
@@ -30,9 +35,10 @@ const CompletedOrders = () => {
   }, []);
 
   return (
+    <>
+    {loader && <Loader/>}
     <div className="max-w-4xl mx-auto my-8">
     <h1 className="text-2xl font-bold text-gray-800 mb-6">Completed Orders</h1>
-    <button onClick={()=>navigate('/unpaid-orders')} className='px-3 py-2 bg-yellow-400 text-white rounded-lg mb-2 '>UnPaid Order </button>
 
     {orders.length > 0 ? (
       orders.map((order) => (
@@ -62,6 +68,7 @@ const CompletedOrders = () => {
       <p className="text-lg text-gray-500">No completed orders found.</p>
     )}
   </div>
+    </>
   
   );
 };

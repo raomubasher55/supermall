@@ -46,9 +46,9 @@ const GrabLevel = () => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
         });
+
         const userData = await response.json();
         setUser(userData?.data);
-
 
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -57,28 +57,35 @@ const GrabLevel = () => {
 
     const OrderData = async () => {
       try {
-        const response = await fetch(`import.meta.env.VITE_API_URL/api/v1/product/orders?status=paid`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`, {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          },
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
         });
+
         const orderData = await response.json();
+
+        // Calculate 2% of each order's amount and sum it
+        const totalCommission = orderData?.orders?.reduce((sum, order) => {
+          return sum + (order.amount * 0.02);  // Calculate 2% of the order amount
+        }, 0);
+
+        setEarningBonus(totalCommission || 0)
+
+
         setCompletedOrders(orderData?.orders.length);
         if (orderData?.orders.length >= 3) {
-          console.log('Expert');
           setLevel("Expert");
         } else if (orderData?.orders.length >= 2) {
-          console.log('InterMadiate');
           setLevel("Intermadiate");
         } else if (orderData?.orders.length >= 1) {
-          console.log('Beginner');
           setLevel("Beginner");
         }
-        else{
+        else {
           setLevel("Newbie");
         }
-        console.log(orderData);
 
 
 

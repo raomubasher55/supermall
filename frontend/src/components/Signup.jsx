@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from './ProductCard/Loader';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,7 +32,7 @@ const SignUpPage = () => {
     }
 
     const { name, email, password, mobile , accountNumber } = formData;
-
+    setLoader(true);
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
         method: 'POST',
@@ -41,16 +43,12 @@ const SignUpPage = () => {
       });
       
       const data = await response.json();
-      console.log(data.success);
       
       if (data.success) {
         toast.success("User registered successfully!");
         navigate('/'); // Redirect to login page after successful registration
-      } 
-      
-      if(!data.success){
-        console.log(data);
-        if(data.msg === "Errors"){
+      }else{
+        if(data.msg === "Validation errors"){
             toast.error(data.errors[0].msg || "Registration failed!");
         }else{
             toast.error(data.msg)
@@ -59,10 +57,14 @@ const SignUpPage = () => {
 
     } catch (error) {
       toast.error("An error occurred during registration!");
+    }finally{
+      setLoader(false);
     }
   };
 
   return (
+    <>
+    {loader && <Loader/>}
     <div className="min-h-screen flex items-center justify-center gradient-bg pl-2 pr-2">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6" style={{ color: '#DB2252' }}>
@@ -156,6 +158,7 @@ const SignUpPage = () => {
         <ToastContainer />
       </div>
     </div>
+    </>
   );
 };
 

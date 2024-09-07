@@ -27,10 +27,10 @@ const corsOptions = {
 };
 
 
-// app.use(cors(corsOptions));
+// app.use(cors());
 
 // Routes
-const authRoute = require('./routes/authRoute');
+const authRoute = require('./routes/authRoute'); 
 const productRoute = require('./routes/productRoute');
 const planRoute = require('./routes/planRoute');
 

@@ -347,7 +347,7 @@ const createPayment = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.balance = (user.balance || 0) + package; // Assuming 'balance' is a field in your User schema
+    user.balance = (Number(user.balance) || 0) + Number(package);  // Assuming 'balance' is a field in your User schema
     await user.save();
 
     res.json({ id: session.id });

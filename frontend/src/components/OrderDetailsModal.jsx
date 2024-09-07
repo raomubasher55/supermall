@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const OrderDetailsModal = ({orderDetail , setShowModal}) => {
   
-  console.log(orderDetail);
   const navigate = useNavigate();
   
 

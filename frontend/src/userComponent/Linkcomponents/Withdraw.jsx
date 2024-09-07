@@ -127,7 +127,7 @@ export default function Withdraw() {
                 <p>Account Name</p>
               </div>
               <div className='w-[50%]'>
-                <p>{userName}</p>
+                <p>{user?.name? user?.name : ""}</p>
               </div>
             </div>
 
@@ -136,7 +136,7 @@ export default function Withdraw() {
                 <p>Mobile Number</p>
               </div>
               <div className='w-[50%]'>
-                <p>{userNumber}</p>
+                <p>{user?.mobile ? user?.mobile : ""}</p>
               </div>
             </div>
 

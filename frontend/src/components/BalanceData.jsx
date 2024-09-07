@@ -9,6 +9,7 @@ export default function BalanceData() {
     const [userName, setUserName] = useState('');
     const [user, setUser] = useState()
   const [inviteCode, SetinviteCode] = useState('');
+  const [commission, setCommission] = useState(0);
 
 
   useEffect(() => {
@@ -22,6 +23,9 @@ export default function BalanceData() {
         });
         const userData = await response.json();
         setUser(userData?.data);
+        
+        setCommission(userData?.data?.balance * 0.02)
+        
 
         
       } catch (error) {
@@ -58,7 +62,7 @@ export default function BalanceData() {
         {/* balance record  */}
         <div className='w-auto h-auto'>
           <h1 className='font-sans text-[rgb(51,51,51)] text-4xl font-bold'>{userName}</h1>
-          <h3 className='text-3xl mt-2 font-medium text-gray-800'>₹{user?.balance}</h3>
+          <h3 className='text-3xl mt-2 font-medium text-gray-800'>₹{user?.balance ? user.balance : 0}</h3>
           <p className='text-md font-medium text-gray-500 mt-1'>My balance</p>
 
           <Link to={'/recharge'}>
@@ -125,14 +129,14 @@ export default function BalanceData() {
       <div className='flex justify-center sm:justify-between items-center flex-wrap text-center w-full sm:w-[600px] md:w-[700px] lg:w-[1000px] h-auto'>
         {/* earning today */}
         <div className='shadow-lg p-4 bg-white rounded-lg w-[200px] sm:w-[30%] h-auto mt-10 ml-5 mr-5 sm:mr-0'>
-          <h1 className='text-xl font-bold'>₹0</h1>
-          <p className='text-sm text-gray-600'>Earnings Today</p>
+          <h1 className='text-xl font-bold'>₹{user?.balance}</h1>
+          <p className='text-sm text-gray-600'>Earnings </p>
         </div>
 
         {/* commission today */}
         <div className='shadow-lg p-4 bg-white rounded-lg w-[200px] sm:w-[30%] h-auto mt-10 ml-5 mr-5 sm:mr-0'>
-          <h1 className='text-xl font-bold'>₹0</h1>
-          <p className='text-sm text-gray-600'>Today's Commission</p>
+          <h1 className='text-xl font-bold'>₹{commission}</h1>
+          <p className='text-sm text-gray-600'>Total's Commission</p>
         </div>
 
         {/* gain */}
