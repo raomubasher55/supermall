@@ -9,13 +9,18 @@ app.use(express.static('public'));
 
 // Allow only specific origins
 const corsOptions = {
-  origin: ['https://supermall.digital', 'http://localhost:5173'], // Add any allowed origins here
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allowed methods
-  allowedHeaders: ['Authorization', 'Content-Type'], // Allowed headers
-  credentials: true // Enable Access-Control-Allow-Credentials
+  origin: (origin, callback) => {
+    const allowedOrigins = ['https://supermall.digital', 'http://localhost:5173'];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the origin
+    } else {
+      callback(new Error('Not allowed by CORS')); // Block the origin
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Authorization', 'Content-Type'],
+  credentials: true,
 };
-
-app.use(cors(corsOptions));
 
  
 const authRoute = require('./routes/authRoute');
