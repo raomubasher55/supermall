@@ -78,7 +78,6 @@ const BankForm = () => {
   const handleBlur = (field) => {
     setIsFocused({ ...isFocused, [field]: false });
   };
-
   const handleSubmit = async () => {
     const bankDetails = {
       bankName: formValues.bankName,
@@ -89,30 +88,37 @@ const BankForm = () => {
       ifsc: formValues.ifsc,
       password: formValues.password
     };
-    setLoader(true)
-    const response = await fetch('http://localhost:3000/api/bank-detail', {
-      method: 'PUT', // Use PUT for update
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify(bankDetails),
-    });
-    setLoader(false);
-    const data = await response.json();
+    setLoader(true); // Start loader before the request
 
-    if (data.success) {
-      toast.success('Bank details updated successfully!');
-    } else {
-      const errors = data.message.split(', ').map(error => error.split(': ')[1]);
-      // Show only the first error message
-      if (errors.length > 0) {
-        toast.error(errors[0]);
+    try {
+      const response = await fetch('https://api.supermall.digital/api/bank-detail', {
+        method: 'PUT', // Use PUT for update
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify(bankDetails),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Bank details updated successfully!');
       } else {
-        toast.error('An unknown error occurred.');
+        const errors = data.message.split(', ').map(error => error.split(': ')[1]);
+        if (errors.length > 0) {
+          toast.error(errors[0]);
+        } else {
+          toast.error('An unknown error occurred.');
+        }
       }
+    } catch (error) {
+      toast.error('Error updating bank details');
+    } finally {
+      setLoader(false); // Stop loader after the request, regardless of success or error
     }
   };
+
 
   return (
     <>
