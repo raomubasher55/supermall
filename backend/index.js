@@ -1,20 +1,34 @@
 require('dotenv').config();
-const  mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URI);
-const express  = require('express');
+const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors');
+
 const app = express();
-const cors = require('cors')
-app.use(express.json())
+
+// Connect to MongoDB with error handling
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((err) => {
+  console.error('MongoDB connection error:', err);
+});
+
+app.use(express.json());
 app.use(express.static('public'));
 
-// Allow only specific origins
+// CORS setup: allow specific origins based on environment
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = ['https://supermall.digital', 'http://localhost:5173'];
+    const allowedOrigins = process.env.NODE_ENV === 'production' 
+      ? ['https://supermall.digital']
+      : ['https://supermall.digital', 'http://localhost:5173'];
+
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow the origin
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS')); // Block the origin
+      callback(new Error('Not allowed by CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -22,18 +36,19 @@ const corsOptions = {
   credentials: true,
 };
 
- 
+app.use(cors(corsOptions));
+
+// Routes
 const authRoute = require('./routes/authRoute');
-const productRoute = require('./routes/productRoute'); 
-const planRoute = require('./routes/planRoute')
+const productRoute = require('./routes/productRoute');
+const planRoute = require('./routes/planRoute');
 
- 
 app.use('/api', authRoute);
-app.use('/api', planRoute); 
-app.use('/api/v1/product' , productRoute);
+app.use('/api', planRoute);
+app.use('/api/v1/product', productRoute);
 
-
-const port = process.env.SERVER_PORT;
-app.listen(port , ()=>{ 
-    console.log("server is runing on port : " + port);
-});  
+// Server setup
+const port = process.env.SERVER_PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
