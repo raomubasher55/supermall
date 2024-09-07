@@ -22,7 +22,7 @@ const signupUser = async (req, res) => {
             });
         }
 
-        const { name, email, password, mobile, bankDetails, currentPlan } = req.body;
+        const { name, email, password, mobile, accountNumber, currentPlan } = req.body;
 
         // Check if user already exists
         const isExistUser = await userModel.findOne({ email });
@@ -42,7 +42,9 @@ const signupUser = async (req, res) => {
             email,
             password: hashPassword,
             mobile,
-            bankDetails: {},  
+            bankDetails: {
+                accountNumber: accountNumber || null // Ensure null if not provided
+            },
             currentPlan: currentPlan || null, 
             role: 0, 
             balance: 0
