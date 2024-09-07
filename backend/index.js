@@ -20,13 +20,7 @@ app.use(express.static('public'));
 
 // CORS setup: allow specific origins based on environment
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (origin === 'https://supermall.digital' || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: 'https://supermall.digital', // Only allow this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Authorization', 'Content-Type'],
   credentials: true,
