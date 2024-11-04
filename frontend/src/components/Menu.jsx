@@ -7,65 +7,44 @@ import { MdOutlineMessage } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 export default function Menu() {
-  const [activeLink, setActiveLink] = useState(null);
+  const [activeItem, setActiveItem] = useState("Home");
 
-  const handleSetActiveLink = (index) => {
-    setActiveLink(index);
+  const navItems = [
+    { name: "Home", icon: <IoMdHome className="w-6 h-6 md:w-8 md:h-8" />, path: "/home" },
+    { name: "Order", icon: <GoTasklist className="w-6 h-6 md:w-8 md:h-8" />, path: "/all-orders" },
+    { name: "Grab", icon: <FaHandPointUp className="w-6 h-6 md:w-8 md:h-8" />, path: "/grab" },
+    { name: "Notify", icon: <MdOutlineMessage className="w-6 h-6 md:w-8 md:h-8" />, path: "/notify" },
+    { name: "MY", icon: <FaUser className="w-6 h-6 md:w-8 md:h-8" />, path: "/user" },
+  ];
+
+  const handleNavClick = (item, index) => {
+    setActiveItem(item);
+    console.log('change')
   };
 
   return (
-    <section className='w-full h-[70px] bg-white menu flex justify-center items-center'>
-      <div className='menu-child w-[350px] h-full flex justify-between'>
-
-        <NavLink
-          to={'/home'}
-          onClick={() => handleSetActiveLink(0)}
-          className={`text-gray-500 cursor-pointer menu-list flex flex-col justify-center items-center ${activeLink === 0 ? 'active' : ''}`}
-          activeClassName="active"
-        >
-          <IoMdHome className='text-[25px]' />
-          <p className='text-sm mt-2 font-medium'>HOME</p>
-        </NavLink>
-
-        <NavLink
-        to={'/task'}
-          onClick={() => handleSetActiveLink(1)}
-          className={`text-gray-500 cursor-pointer menu-list flex flex-col justify-center items-center ${activeLink === 1 ? 'active' : ''}`}
-        >
-          <GoTasklist className='text-[25px]' />
-          <p className='text-sm mt-2 font-medium'>TASK</p>
-        </NavLink>
-
-        <NavLink
-         to={'/grab'}
-          onClick={() => handleSetActiveLink(2)}
-          className={`text-gray-500 cursor-pointer menu-list flex flex-col justify-center items-center ${activeLink === 2 ? 'active' : ''}`}
-        >
-          <FaHandPointUp className='text-[25px]' />
-          <p className='text-sm mt-2 font-medium'>GRAB</p>
-        </NavLink>
-
-        <NavLink
-          to={'/notify'}
-          onClick={() => handleSetActiveLink(3)}
-          className={`text-gray-500 cursor-pointer menu-list flex flex-col justify-center items-center ${activeLink === 3 ? 'active' : ''}`}
-          activeClassName="active"
-        >
-          <MdOutlineMessage className='text-[25px]' />
-          <p className='text-sm mt-2 font-medium'>NOTIFY</p>
-        </NavLink>
-
-        <NavLink
-          to={'/user'}
-          onClick={() => handleSetActiveLink(4)}
-          className={`text-gray-500 cursor-pointer menu-list flex flex-col justify-center items-center ${activeLink === 4 ? 'active' : ''}`}
-          activeClassName="active"
-        >
-          <FaUser className='text-[25px]' />
-          <p className='text-sm mt-2 font-medium'>MY</p>
-        </NavLink>
-
+    <div className="min-w-full max-w-md mx-auto fixed bottom-0 bg-[#ff4d6d]">
+    <div className='flex justify-center'>
+      <div className="bg-[#ff4d6d] rounded-full p-2 text-white">
+        <nav className="flex justify-between items-center">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.path}
+              className={({ isActive }) =>
+                `flex flex-col items-center justify-center w-16 h-16 ${
+                  isActive ? "bg-white text-[#ff4d6d] rounded-full" : "text-white"
+                }`
+              }
+              aria-current={({ isActive }) => (isActive ? "page" : undefined)}
+            >
+              {item.icon}
+              <span className="text-xs mt-1">{item.name}</span>
+            </NavLink>
+          ))}
+        </nav>
       </div>
-    </section>
+    </div>
+  </div>
   );
 }

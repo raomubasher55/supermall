@@ -56,26 +56,26 @@ export default function Home() {
 
         <Link to={'/about'} className='w-[40%] sm:w-[24%]'>
           <div className='pageBox flex justify- flex-col items-center mt-2 cursor-pointer'>
-            <img src={ALiExpress} className='w-[85%] h-[75%] rounded-full' alt="logo" />
-            <p className='p-0 m-0 text-center text-red-600 font-medium'>about us</p>
+            <img src={ALiExpress} className='w-[85%] h-[75%] rounded-lg' alt="logo" />
+            <p className='p-0 m-0 text-center  font-medium'>about us</p>
           </div>
         </Link>
         <Link to={'/help'} className='w-[40%] sm:w-[24%]'>
           <div className='pageBox flex justify- flex-col items-center cursor-pointer'>
-            <img src={help} className='w-[85%] h-[75%] rounded-full' alt="logo" />
-            <p className='p-0 m-0 text-center text-red-600 font-medium'>help center</p>
+            <img src={help} className='w-[85%] h-[75%] rounded-lg' alt="logo" />
+            <p className='p-0 m-0 text-center  font-medium'>help center</p>
           </div>
         </Link>
         <Link to={'/merchant'} className='w-[40%] sm:w-[24%]'>
           <div className='pageBox flex justify- flex-col items-center cursor-pointer'>
-            <img src={center} className='w-[85%] h-[75%] rounded-full' alt="logo" />
-            <p className='p-0 m-0 text-center text-red-600 font-medium'>merchant center</p>
+            <img src={center} className='w-[85%] h-[75%] rounded-lg' alt="logo" />
+            <p className='p-0 m-0 text-center font-medium'>merchant center</p>
           </div>
         </Link>
         <Link to={'/invitereward'} className='w-[40%] sm:w-[24%]'>
           <div className='pageBox flex justify- flex-col items-center cursor-pointer'>
-            <img src={reward} className='w-[85%] h-[75%] rounded-full' alt="logo" />
-            <p className='p-0 m-0 text-center text-red-600 font-medium'>invitation reward</p>
+            <img src={reward} className='w-[85%] h-[75%] rounded-lg' alt="logo" />
+            <p className='p-0 m-0 text-center  font-medium'>invitation reward</p>
           </div>
         </Link>
       </section>

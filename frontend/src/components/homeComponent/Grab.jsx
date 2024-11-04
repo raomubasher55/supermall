@@ -3,6 +3,10 @@ import { SlArrowLeft } from 'react-icons/sl';
 import { MdNotificationsActive } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
+import { Bell, HelpCircle, Plus } from "lucide-react"
+import InfoCard from '../InfoCard/InfoCard';
+import OrderDetailsModal from '../OrderDetailsModal';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const GrabLevel = () => {
@@ -14,6 +18,20 @@ const GrabLevel = () => {
   const [userImage, setUserImage] = useState(null);
   const [userName, setUserName] = useState('');
   const [user, setUser] = useState();
+  const [incomplete, setIncomplete] = useState(0);
+  const [allOrder, setAllOrder] = useState(0);
+  const [orderDetail, setOrderDetail] = useState({
+      success: true,
+      order_id: uuidv4(),
+      order_date: new Date(),
+      order_status: "pending",
+      // order_total: 100,
+      name: "brown shoes sneakers",
+      commission: 0.02 * 500,
+      amount: 500,
+      task:1
+  });
+  const [showModal, setShowModal] = useState(false); 
 
 
   useEffect(() => {
@@ -57,7 +75,7 @@ const GrabLevel = () => {
 
     const OrderData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/order/all-order?status=paid`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -66,6 +84,50 @@ const GrabLevel = () => {
         });
 
         const orderData = await response.json();
+        setCompletedOrders(orderData?.orders)
+
+
+
+
+        const response1 = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/order/all-order?status=unpaid`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (!response1.ok) {
+          throw new Error('Failed to fetch orders');
+        }
+
+        const result1 = await response1.json();        
+        setIncomplete(result1.orders)
+
+
+
+
+
+
+
+        const response2 = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/order/all-orders`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (!response2.ok) {
+          throw new Error('Failed to fetch orders');
+        }
+        const result2 = await response2.json();
+        setAllOrder(result2?.count)
+
+
+
+    
+        
 
         // Calculate 2% of each order's amount and sum it
         const totalCommission = orderData?.orders?.reduce((sum, order) => {
@@ -75,7 +137,6 @@ const GrabLevel = () => {
         setEarningBonus(totalCommission || 0)
 
 
-        setCompletedOrders(orderData?.orders.length);
         if (orderData?.orders.length >= 3) {
           setLevel("Expert");
         } else if (orderData?.orders.length >= 2) {
@@ -101,64 +162,94 @@ const GrabLevel = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl">
-        <div onClick={() => navigate(-1)}>
-          <SlArrowLeft className="cursor-pointer" />
+        <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="p-4 space-y-4">
+          {/* Header */}
+          <div className="fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center px-4 text-xl z-10">
+            <div onClick={() => navigate(-1)}>
+              <SlArrowLeft className="cursor-pointer" />
+            </div>
+            <h1 className="text-lg">GRAB LEVEL</h1>
+            <Link to="/notify">
+              <MdNotificationsActive className="cursor-pointer" />
+            </Link>
+          </div>
+
+          {/* Account Info */}
+          <div className="flex justify-between items-center ">
+            <div className='mt-[90px]'>
+              <h2 className="text-2xl font-bold">{user?.balance ? user?.balance : "00"}₹</h2>
+              <p className="text-sm text-gray-500">account funds</p>
+            </div>
+            <div className="flex items-center space-x-2">
+              {/* <Bell className="w-6 h-6 text-gray-500" /> */}
+              <div className="w-8 h-8 bg-color rounded-full flex items-center justify-center">
+                <Plus className="w-6 h-6 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* User Info */}
+          <div className="flex flex-col items-center">
+            {/* {userImage ? (
+              <img src={userImage} alt="Profile" className="w-24 h-24 rounded-full" />
+            ) : (
+              <FaUser className="w-24 h-24 rounded-full object-cover" />
+            )} */}
+            {/* <h2 className="text-3xl font-bold mt-4">{user?.name ? user?.name : "username"}</h2>/ */}
+            <div className="text-xl mt-2">{level}</div>
+          </div>
+
+          {/* VIPO Card */}
+          <div className="bg-color rounded-lg p-4 text-white relative">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold">VIP</h3>
+              <HelpCircle className="w-5 h-5" />
+            </div>
+            <div className="flex justify-between">
+              <div className="text-center">
+                <p className="text-2xl font-bold">{completedOrders?.length}  </p>
+                <p className="text-xs">Completed</p>
+              </div>
+              <div onClick={()=>navigate('/all-orders')} className="text-center">
+                <p className="text-2xl font-bold">{allOrder}</p>
+                <p className="text-xs">All Orders</p>
+              </div>
+              <div className="text-center">
+                <p className="text-2xl font-bold">{incomplete?.length}</p>
+                <p className="text-xs">Incomplete</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Info Cards */}
+          <div className="grid grid-cols-2 gap-4">
+            <InfoCard title="Commission Earned" value={`₹${earningBonus}`} />
+            <InfoCard title="Frozen Amount" value="₹0.00" />
+            <InfoCard title="Incomplete Orders" value="₹0" />
+            <InfoCard title="Available Balance" value={`₹${user?.balance}`} />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center mt-4">
+            {/* <Link to="/withdraw" className="mx-2 my-2 sm:my-0 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md">
+              Withdraw
+            </Link>
+            <Link to="/recharge" className="mx-2 my-2 sm:my-0 px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
+              Deposit
+            </Link> */}
+            {/* <Link to="/task" className="mx-2 my-2 sm:my-0 px-4 py-2 bg-color text-white rounded-full text-center shadow-md">
+              START GRABBING ORDERS
+            </Link> */}
+            <div onClick={()=>setShowModal(true)} className="mx-2 my-2 sm:my-0 px-4 py-2 bg-color text-white rounded-full text-center shadow-md">
+              START GRABBING ORDERS
+            </div>
+                      {showModal && <OrderDetailsModal  orderDetail={orderDetail} setShowModal={setShowModal} />}
+
+          </div>
         </div>
-        <h1 className="text-lg">GRAB LEVEL</h1>
-        <Link to="/notify">
-          <MdNotificationsActive className="cursor-pointer" />
-        </Link>
       </div>
-
-      <div className="container mt-[50px] p-6 w-full bg-white rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-center my-6">{user?.name}</h2>
-
-        <div className="flex flex-col items-center">
-          {userImage ? (
-            <img src={userImage} alt="Profile" className="w-24 h-24 rounded-full" />
-          ) : (
-            <FaUser className='w-24 h-24 rounded-full object-cover' />
-          )}
-          <div className="text-xl mt-4">{level}</div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-          <div className="p-4 bg-gray-100 rounded-md shadow-sm">
-            <h3 className="text-xl font-semibold">Completed Orders</h3>
-            <p className="text-2xl">{completedOrders}</p>
-          </div>
-
-          <div className="p-4 bg-gray-100 rounded-md shadow-sm">
-            <h3 className="text-xl font-semibold">Earning Bonus</h3>
-            <p className="text-2xl">₹{earningBonus}</p>
-          </div>
-
-          <div className="p-4 bg-gray-100 rounded-md shadow-sm">
-            <h3 className="text-xl font-semibold">Level</h3>
-            <p className="text-2xl">{level}</p>
-          </div>
-
-          <div className="p-4 bg-gray-100 rounded-md shadow-sm">
-            <h3 className="text-xl font-semibold">Total Balance</h3>
-            <p className="text-2xl">₹ {user?.balance}</p>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row justify-center mt-6">
-          <Link to="/withdraw" className="mx-2 my-2 sm:my-0 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md">
-            Withdraw
-          </Link>
-          <Link to="/recharge" className="mx-2 my-2 sm:my-0 px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
-            Deposit
-          </Link>
-          <Link to="/task" className="mx-2 my-2 sm:my-0 px-4 py-2 bg-green-500 text-white rounded-md shadow-md">
-            Garb an Order
-          </Link>
-        </div>
-      </div>
-
-      <footer className="w-full bg-[#DB2252] text-white py-4 mt-12 flex flex-col md:flex-row justify-between items-center flex-wrap">
+      <footer className="w-full bg-color text-white py-4 mt-12 flex flex-col md:flex-row justify-between items-center flex-wrap">
         <div className='mx-auto w-[90%] md:w-[46%]'>
           <p className="text-xl font-semibold mb-4 ml-6">
             Why choose us?

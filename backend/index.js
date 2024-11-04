@@ -20,23 +20,26 @@ app.use(express.static('public'));
 
 // CORS setup: allow specific origins based on environment
 const corsOptions = {
-  origin: 'https://supermall.digital', // Only allow this origin
+  origin: ['https://supermall.digital' , 'http://localhost:5173/login'], // Only allow this origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Authorization', 'Content-Type'],
   credentials: true,
 };
 
 
-// app.use(cors());
+app.use(cors());
 
 // Routes
+require('./service/orderCronJob');
 const authRoute = require('./routes/authRoute'); 
 const productRoute = require('./routes/productRoute');
 const planRoute = require('./routes/planRoute');
+const orderRoute = require('./routes/orderRoute');
 
 app.use('/api', authRoute);
 app.use('/api', planRoute);
 app.use('/api/v1/product', productRoute);
+app.use('/api/v1/order', orderRoute);
 
 // Server setup
 const port = process.env.SERVER_PORT || 3000;

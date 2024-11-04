@@ -212,7 +212,7 @@ const updateProduct = async (req, res) => {
 const filterProduct = async (req, res) => {
   try {
     const { checked = [], radio = [] } = req.body; // Provide default values if undefined
-    console.log("Received data:", { checked, radio }); // Add this line for debugging
+    // console.log("Received data:", { checked, radio }); // Add this line for debugging
     let args = {};
     if (checked.length > 0) args.category = checked;
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
@@ -297,10 +297,8 @@ const searchProducts = async (req, res) => {
 
 const createPayment = async (req, res) => {
   try {
-    const { package, name, image, task, commission } = req.body; // Assuming 'package' contains the amount to be charged
-    const userId = req.user.user._id; // Retrieve the user ID from the middleware
-
-    console.log(commission);
+    const { package, name, image, task, commission } = req.body;
+    const userId = req.user.user._id;
 
     if (!package || isNaN(package)) {
       return res.status(400).json({ error: "Invalid package amount" });
@@ -311,7 +309,7 @@ const createPayment = async (req, res) => {
         price_data: {
           currency: "INR",
           product_data: {
-            name: name || "custom Desposit",
+            name: name || "custom Desposit", 
             images: [image],
           },
           unit_amount: package * 100, // Convert package amount to cents
@@ -324,8 +322,11 @@ const createPayment = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `https://supermall.digital/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `https://supermall.digital/fail?session_id={CHECKOUT_SESSION_ID}`,
+      // success_url: `https://supermall.digital/success?session_id={CHECKOUT_SESSION_ID}`,
+      // cancel_url: `https://supermall.digital/fail?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `http://localhost:5173/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `http://localhost:5173/fail?session_id={CHECKOUT_SESSION_ID}`,
+
     });
 
     // Save the product with 'unpaid' status
@@ -397,8 +398,6 @@ const getAllOrder = async (req, res) => {
   const userId = req.user.user._id; // Assuming req.user contains the logged-in user info
 
   try {
-    console.log('Status:', status); // Log status
-    console.log('User ID:', userId); // Log user ID
 
     // Fetch orders for the logged-in user and filter by status (paid)
     const orders = await Purchase.find({ status: status, userId: userId });
@@ -413,6 +412,13 @@ const getAllOrder = async (req, res) => {
   }
 };
 
+//Get all Order paid and unpaid
+const getAllPurchase = async (req, res) => {
+  const userId = req.user.user._id;
+  const allPurchase = await Purchase.find({userId : userId});
+  res.status(200).json({ success: true, allPurchase });
+}
+
 
 
 const withdraw = async (req, res) => {
@@ -420,7 +426,6 @@ const withdraw = async (req, res) => {
     try {
       const { userId, amount } = req.body;
 
-      console.log(userId, amount);
 
       // Validate amount
       if (!amount || isNaN(amount) || amount <= 0) {
@@ -528,4 +533,5 @@ module.exports = {
   updatePurchase,
   getAllOrder,
   withdraw,
+  getAllPurchase,
 };

@@ -116,3 +116,14 @@
         height: 23vh;
     }
   }
+
+
+
+
+  :root {
+    --background-color: #ff4d6d;
+  }
+
+  .bg-color{
+    background-color: var(--background-color);
+  }

@@ -2,6 +2,7 @@ import React from 'react'
 import { SlArrowLeft } from 'react-icons/sl';
 import { MdNotificationsActive } from 'react-icons/md';
 import { Link , useNavigate } from 'react-router-dom';
+import about from '../../assets/about.png'
 
 export default function About() {
 
@@ -9,7 +10,7 @@ export default function About() {
 
   return (
     <div className="flex flex-col items-center bg-white overflow-hidden p-5">
-    <div className="fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl">
+    <div className="fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl">
       <div onClick={() => navigate(-1)}>
         <SlArrowLeft className="cursor-pointer" />
       </div>
@@ -23,10 +24,7 @@ export default function About() {
 
     <div className="space-y-3 mt-[50px]">
         <div className="p-4 bg-gray-100 rounded-lg shadow-inner">
-          <h3 className="text-lg font-semibold">Trusted Worldwide</h3>
-          <p>
-            Our platform is recognized globally as a secure and reliable destination for investing money and earning daily profits. Join thousands of satisfied users who trust us with their investments.
-          </p>
+            <img src={about} alt="" />
         </div>
         <div className="p-4 bg-gray-100 rounded-lg shadow-inner">
           <h3 className="text-lg font-semibold">Easy Transactions</h3>

@@ -95,7 +95,7 @@ export default function Recharge() {
     <>
     {loader && <Loader/>}
     <div className="flex flex-col items-center bg-white overflow-hidden">
-      <div className="fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl">
+      <div className="fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl">
         <div onClick={() => navigate(-1)}>
           <SlArrowLeft className="cursor-pointer" />
         </div>
@@ -140,7 +140,7 @@ export default function Recharge() {
         </div>
       </div>
 
-      <button onClick={() => handleOnCheckout(inputValue)} className='w-[90%] h-[45px] bg-[#E91E63] mt-3 rounded-3xl text-white font-medium'>RECHARGE</button>
+      <button onClick={() => handleOnCheckout(inputValue)} className='w-[90%] h-[45px] bg-color mt-3 rounded-3xl text-white font-medium'>RECHARGE</button>
       <ToastContainer />
     </div>
     </>

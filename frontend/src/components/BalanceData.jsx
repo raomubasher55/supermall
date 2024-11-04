@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 import { FaDollarSign, FaHandPointUp } from "react-icons/fa";
 import { PiHandWithdrawFill } from "react-icons/pi";
+import { TfiStatsUp } from "react-icons/tfi";
+import { CiMoneyBill } from "react-icons/ci";
+import { IoExtensionPuzzleOutline } from "react-icons/io5";
 import { IoShareSocial } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 
 export default function BalanceData() {
-    const [userName, setUserName] = useState('');
-    const [user, setUser] = useState()
+  const [userName, setUserName] = useState('');
+  const [user, setUser] = useState()
   const [inviteCode, SetinviteCode] = useState('');
   const [commission, setCommission] = useState(0);
 
@@ -15,7 +18,7 @@ export default function BalanceData() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch('https://api.supermall.digital/api/profile', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/profile`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -23,18 +26,18 @@ export default function BalanceData() {
         });
         const userData = await response.json();
         setUser(userData?.data);
-        
-        setCommission(userData?.data?.balance * 0.02)
-        
 
-        
+        setCommission(userData?.data?.balance * 0.02)
+
+
+
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
-  
+
     fetchUserData();
-  
+
   }, []);
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export default function BalanceData() {
     fetchData();
   }, []);
 
-  
+
 
   return (
     <div className='w-full h-auto p-3 sm:p-10 flex flex-col items-center mb-10'>
@@ -66,7 +69,7 @@ export default function BalanceData() {
           <p className='text-md font-medium text-gray-500 mt-1'>My balance</p>
 
           <Link to={'/recharge'}>
-            <div className='recharg2 cursor-pointer mt-2 bg-[#E91E63] w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] rounded-full flex justify-center items-center text-white text-xl'>
+            <div className='recharg2 cursor-pointer mt-2 bg-color w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] rounded-full flex justify-center items-center text-white text-xl'>
               <FaDollarSign />
             </div>
           </Link>
@@ -76,7 +79,7 @@ export default function BalanceData() {
         {/* recharge section link */}
         <Link to={'/recharge'}>
           <div className='w-auto h-full recharge1'>
-            <div className='cursor-pointer bg-[#E91E63] hover:bg-[#E67E60] transition w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] rounded-full flex justify-center items-center text-white text-xl'>
+            <div className='cursor-pointer bg-color hover:bg-[#ff5a5a] transition w-[50px] sm:w-[60px] h-[50px] sm:h-[60px] rounded-full flex justify-center items-center text-white text-xl'>
               <FaDollarSign />
             </div>
           </div>
@@ -84,7 +87,7 @@ export default function BalanceData() {
 
       </div>
       <Link to={'/grab'} className='container flex justify-center items-center'>
-        <button className='container flex justify-center items-center bg-[#E91E63] hover:bg-[#E67E60] transition text-white p-3 mt-6 rounded-3xl font-medium'>
+        <button className='container flex justify-center items-center bg-color hover:bg-[#ff5a5a] transition text-white p-3 mt-6 rounded-lg font-medium'>
           <FaHandPointUp className='text-2xl mr-2' /> START MAKING MONEY
         </button>
       </Link>
@@ -94,8 +97,8 @@ export default function BalanceData() {
         {/* recharge */}
         <Link to={"/recharge"}>
           <div className='h-max w-max group flex flex-col items-center'>
-            <div className='bg-[#F5BDCC] text-[#F5BDCC] w-[60px] sm:w-[70px] h-[60px] sm:h-[70px] rounded-full flex justify-center items-center cursor-pointer '>
-              <FaDollarSign className='bg-[#E91E63] rounded-full w-[20px] h-[20px]' />
+            <div className='bg-[#ff4d6d] text-[#F5BDCC] w-[60px] sm:w-[70px] h-[60px] sm:h-[70px] rounded-full flex justify-center items-center cursor-pointer '>
+              <FaDollarSign className=' text-white rounded-full w-[20px] h-[20px]' />
             </div>
             <h1 className='mt-2 font-medium text-gray-700 group-hover:underline'>Recharge</h1>
           </div>
@@ -104,8 +107,8 @@ export default function BalanceData() {
         {/* withdraw */}
         <Link to={'/withdraw'}>
           <div className='h-max w-max group flex flex-col items-center'>
-            <div className='bg-[#F5BDCC] text-[#F5BDCC] w-[60px] sm:w-[70px] h-[60px] sm:h-[70px] rounded-full flex justify-center items-center cursor-pointer '>
-              <PiHandWithdrawFill className='text-[#E91E63] rounded-full text-3xl' />
+            <div className='bg-[#ff4d6d] text-[#F5BDCC] w-[60px] sm:w-[70px] h-[60px] sm:h-[70px] rounded-full flex justify-center items-center cursor-pointer '>
+              <PiHandWithdrawFill className='text-white rounded-full text-3xl' />
             </div>
             <h1 className='mt-2 font-medium text-gray-700 group-hover:underline'>Withdraw</h1>
           </div>
@@ -114,8 +117,8 @@ export default function BalanceData() {
         {/* share */}
         <Link to={'/invite'}>
           <div className='h-max w-max group flex flex-col items-center'>
-            <div className='bg-[#F5BDCC] text-[#F5BDCC] w-[60px] sm:w-[70px] h-[60px] sm:h-[70px] rounded-full flex justify-center items-center cursor-pointer '>
-              <IoShareSocial className='text-[#E91E63] rounded-full text-2xl' />
+            <div className='bg-[#ff4d6d] text-[#F5BDCC] w-[60px] sm:w-[70px] h-[60px] sm:h-[70px] rounded-full flex justify-center items-center cursor-pointer '>
+              <IoShareSocial className='text-white rounded-full text-2xl' />
             </div>
             <h1 className='mt-2 font-medium text-gray-700 group-hover:underline'>Share</h1>
           </div>
@@ -124,28 +127,53 @@ export default function BalanceData() {
       </div>
 
       {/* gain profit section */}
-      <h1 className='mt-[100px] font-bold text-xl text-gray-700'>GAIN</h1>
+    <h1 className='mt-[100px] font-bold text-xl text-gray-700'>GAIN</h1>
+      <div className='flex flex-wrap justify-center sm:justify-between items-center text-center w-full sm:w-[600px] md:w-[700px] lg:w-[1000px] h-auto'>
+        <div className='flex justify-center gap-2 w-full flex-wrap'>
+          {/* Earnings today */}
+          <div className=' p-4 bg-[#FAF0F5] border border-[#76636c] rounded-lg w-[45%] sm:w-[30%] h-auto mt-4'>
+            <div className='flex mt-2'>
+              <div>
+                <CiMoneyBill className='text-4xl ' />
+              </div>
+              <div>
+                <h1 className='text-xl font-bold'>₹4534{user?.balance}</h1>
+                <p className='text-sm font-bold text-gray-600'>Earnings</p>
+              </div>
+            </div>
 
-      <div className='flex justify-center sm:justify-between items-center flex-wrap text-center w-full sm:w-[600px] md:w-[700px] lg:w-[1000px] h-auto'>
-        {/* earning today */}
-        <div className='shadow-lg p-4 bg-white rounded-lg w-[200px] sm:w-[30%] h-auto mt-10 ml-5 mr-5 sm:mr-0'>
-          <h1 className='text-xl font-bold'>₹{user?.balance}</h1>
-          <p className='text-sm text-gray-600'>Earnings </p>
+          </div>
+
+          {/* Commission today */}
+          <div className=' p-4 bg-[#FAF0F5] border border-[#76636c] rounded-lg w-[45%] sm:w-[30%] h-auto mt-4'>
+            <div className="flex mt-2">
+              <div>
+                <IoExtensionPuzzleOutline  className='text-4xl ' />
+              </div>
+              <div>
+                <h1 className='text-xl font-bold'>₹453{commission}</h1>
+                <p className='text-sm font-bold text-gray-600'>Total's Commission</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Gain */}
+          <div className=' p-4 bg-[#FAF0F5] border border-[#76636c] rounded-lg w-[90%] sm:w-[30%] h-auto mt-4'>
+            <div className="flex mt-2 justify-center">
+              <div>
+                <TfiStatsUp  className='text-4xl ' />
+              </div>
+              <div className='flex  justify-center items-center'>
+          
+                  <h1 className='text-xl text-center font-bold'>₹40</h1>
+                  <p className='text-sm font-bold text-gray-600'>Gain</p>
+                
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* commission today */}
-        <div className='shadow-lg p-4 bg-white rounded-lg w-[200px] sm:w-[30%] h-auto mt-10 ml-5 mr-5 sm:mr-0'>
-          <h1 className='text-xl font-bold'>₹{commission}</h1>
-          <p className='text-sm text-gray-600'>Total's Commission</p>
-        </div>
-
-        {/* gain */}
-        <div className='shadow-lg p-4 bg-white rounded-lg w-[200px] sm:w-[30%] h-auto mt-10 ml-5 mr-5 sm:mr-0'>
-          <h1 className='text-xl font-bold'>₹0</h1>
-          <p className='text-sm text-gray-600'>Gain</p>
-        </div>
-
       </div>
+
 
     </div>
   )

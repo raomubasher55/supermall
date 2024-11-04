@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from './ProductCard/Loader';
+import Loader from './ProductCard/Loader'; // Assuming this is your loading component
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -36,9 +36,6 @@ const LoginPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-
-
-        // Assuming the API returns the user ID and token, you can store them in localStorage
         if (data.success) {
           localStorage.setItem('currentUserId', JSON.stringify(data.user));
           localStorage.setItem('token', data.accessToken);
@@ -61,54 +58,56 @@ const LoginPage = () => {
   return (
     <>
       {loader && <Loader />}
-      <div className="min-h-screen flex items-center justify-center gradient-bg pl-2 pr-2">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold text-center mb-6" style={{ color: '#DB2252' }}>
-            Login
-          </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block text-gray-700">Email or Number</label>
-              <input
-                type="text"
-                name="emailOrNumber"
-                value={formData.emailOrNumber}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700">Password</label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
-                required
-              />
-            </div>
-            <div className="flex justify-between items-center mb-6">
-              <button
-                type="submit"
-                className="w-full bg-[#DB2252] text-white px-4 py-2 rounded-md hover:bg-[#b91c46] transition duration-300"
-              >
-                Login
-              </button>
-            </div>
-            <div className="text-center">
-              <button
-                type="button"
-                className="text-[#DB2252] hover:underline"
-                onClick={() => navigate('/signup')}
-              >
-                Don't have an account? Sign Up
-              </button>
-            </div>
+      <div className="min-h-screen flex items-center justify-center bg-white p-4">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <div className="text-[#ff4d6d] text-2xl font-bold mb-4">LOGO Here</div>
+          </div>
+            <h2 className="text-3xl font-bold text-[#ff4d6d] mb-6">Login</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <input
+              type="text"
+              name="emailOrNumber"
+              placeholder="Enter Your Email or Number"
+              value={formData.emailOrNumber}
+              onChange={handleChange}
+              required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter Your Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
+            />
+            <button
+              type="submit"
+              className="w-full bg-[#ff4d6d] text-white py-2 rounded-md hover:bg-[#ff3c5c] transition-colors"
+            >
+              Login
+            </button>
           </form>
-          <ToastContainer />
+          {/* <div className="text-center text-sm text-gray-500">
+            or continue with
+          </div>
+          <button className="w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-md flex items-center justify-center space-x-2 hover:bg-gray-50 transition-colors">
+            <img src="/placeholder.svg?height=24&width=24" alt="Google logo" className="w-6 h-6" />
+            <span>Google Account</span>
+          </button> */}
+          <p className="text-center text-sm">
+            Have not account yet?{' '}
+            <button
+              className="text-green-500 hover:underline"
+              onClick={() => navigate('/signup')}
+            >
+              Register
+            </button>
+          </p>
         </div>
+        <ToastContainer />
       </div>
     </>
   );

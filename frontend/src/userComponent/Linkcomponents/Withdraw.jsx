@@ -11,7 +11,7 @@ export default function Withdraw() {
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
   const [user, setUser] = useState();
-  const [amount, setAmount] = useState({ withdraw: 0, password: "" });
+  const [amount, setAmount] = useState({ withdraw: null, password: "" });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [loader, setLoader] = useState(false);
 
@@ -107,7 +107,7 @@ export default function Withdraw() {
   return (
     <div className='flex flex-col items-center'>
       {loader && <Loader />}
-      <div className='w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl'>
+      <div className='w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl'>
         <div onClick={() => navigate(-1)}>
           <SlArrowLeft className="cursor-pointer" />
         </div>
@@ -117,7 +117,7 @@ export default function Withdraw() {
         </Link>
       </div>
       <main className='w-full lg:w-[1100px] p-3'>
-        <div className='container p-0 bg-[#DF2057] h-auto mt-3 rounded-xl flex flex-col items-center'>
+        <div className='container p-0 bg-color h-auto mt-3 rounded-xl flex flex-col items-center'>
           <h2 className='mt-3 text-white text-3xl font-medium'>₹ {user?.balance}</h2>
           <p className='text-[#F1B9C4] font-medium'>amount that can be withdrawn</p>
 
@@ -141,7 +141,7 @@ export default function Withdraw() {
             </div>
 
             <div className='flex justify-between items-center w-max mt-3'>
-              <div className='w-[17px] h-[17px] bg-[#E12159] rounded-full flex justify-center items-center'>
+              <div className='w-[17px] h-[17px] bg-color rounded-full flex justify-center items-center'>
                 <div className='w-[7px] h-[7px] bg-white rounded-full'></div>
               </div>
               <p className='text-sm text-gray-600 ml-3'>Withdraw cash to bank card</p>
@@ -153,12 +153,12 @@ export default function Withdraw() {
         <div className='container'>
           <h1 className='w-full mt-8 font-medium mb-2'>WITHDRAWAL AMOUNT</h1>
           <form onSubmit={handleOnSubmit}>
-            <input onChange={handleOnChange} name='withdraw' value={amount.withdraw} className='w-full h-[50px] border border-gray-700 p-2 outline-none mt-2 rounded-3xl focus:border-red-500' type="number" placeholder='Please enter the withdrawal amount' />
+            <input onChange={handleOnChange}   name='withdraw' value={amount.withdraw} className='w-full h-[50px] border border-gray-700 p-2 outline-none mt-2 rounded-3xl focus:border-red-500 placeholder:text-[#b4984c]' type="number" placeholder='Please enter the withdrawal amount' />
             {/* <input onChange={handleOnChange} name='password' value={amount.password} className='w-full h-[50px] border border-gray-700 p-2 outline-none mt-2 rounded-3xl focus:border-red-500' type="password" placeholder='Please enter fund password' /> */}
 
             <p className='mt-3 text-[12.5px] text-gray-500'>*The withdrawal will arrive within 3-5 minutes after submitting the withdrawal request. It will be delayed during peak periods, so please wait patiently.</p>
             <p className='mt-3 text-[12.5px] text-gray-500'>*If you have any withdrawal issues, please contact your supervisor.</p>
-            <button type='submit' className='bg-[#E12159] text-white w-[95%] mt-3 p-2 rounded-3xl'>WITHDRAWAL</button>
+            <button type='submit' className='bg-color text-white w-[95%] mt-3 p-2 rounded-3xl'>WITHDRAWAL</button>
           </form>
         </div>
       </main>

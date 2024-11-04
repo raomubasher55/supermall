@@ -29,6 +29,7 @@ import ProtectedRoute from './components/protectedRoutes/ProtectedRoute';
 import CompletedOrders from './components/CompeletedOrders';
 import UnpaidOrders from './components/UnpaidOrders';
 import AllOrders from './components/AllOrders';
+import Try from './components/Try';
 
 
 
@@ -151,6 +152,10 @@ export default function App() {
         <ProtectedRoute>
           <PasswordChange />
         </ProtectedRoute>
+      } />
+
+      <Route path='/try' element={
+          <Try />
       } />
 
       <Route path='/passwordwithdraw' element={

@@ -67,7 +67,7 @@ export default function Address() {
 
   return (
     <div className='flex flex-col items-center bg-white'>
-      <div className='w-full h-[55px] bg-[#FFFFFF] text-gray-600 flex justify-between items-center p-4 text-xl'>
+      <div className='w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl'>
         <Link to={'/user'}>
           <SlArrowLeft className='cursor-pointer' />
         </Link>
@@ -142,7 +142,7 @@ export default function Address() {
       
        {/* submit butn  */}
 
-   <button className='w-[90%] bg-[#2F3848] text-white mt-7 h-[40px] rounded-md'>OK</button>
+   <button className='w-[90%] bg-color text-white mt-7 h-[40px] rounded-md'>OK</button>
 
 
     </div>

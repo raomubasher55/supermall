@@ -11,7 +11,7 @@ export default function WithdrawRecord() {
 
   return (
     <div className='flex flex-col items-center bg-white'>
-        <div className='fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl'>
+        <div className='fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl'>
                 <Link to={'/user'}>
                 <SlArrowLeft className='cursor-pointer' />
                 </Link>

@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import CompletedOrders from './CompeletedOrders';
-import UnpaidOrders from './UnpaidOrders';
-import { MdNotificationsActive } from 'react-icons/md';
-import { SlArrowLeft } from 'react-icons/sl';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import CompletedOrders from "./CompeletedOrders";
+import UnpaidOrders from "./UnpaidOrders";
+import { MdNotificationsActive } from "react-icons/md";
+import { SlArrowLeft } from "react-icons/sl";
+import { Link, useNavigate } from "react-router-dom";
+import AllOrder from "./AllOrder";
+import FreezingOrders from "./FreezingOrders";
 
 const AllOrders = () => {
-  const [activeTab, setActiveTab] = useState('paid');
+  const [activeTab, setActiveTab] = useState("all");
   const navigate = useNavigate();
 
   return (
-    <>
-      <div className="fixed left-0 top-0 w-full   h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl">
+    <div className="flex flex-col min-h-screen bg-gray-100 p-4">
+      {/* Header */}
+      <div className="fixed left-0 top-0 w-full  h-[55px] bg-color text-white flex justify-between items-center px-4 text-xl z-10">
         <div onClick={() => navigate(-1)}>
           <SlArrowLeft className="cursor-pointer" />
         </div>
-        <h1 className="text-lg">All Order</h1>
+        <h1 className="text-lg">All Orders</h1>
         <Link to="/notify">
           <MdNotificationsActive className="cursor-pointer" />
         </Link>
@@ -23,28 +26,49 @@ const AllOrders = () => {
 
 
 
-      <div className="max-w-4xl mx-auto my-8 mt-16">
-        <div className="flex justify-center mb-4">
+      {/* Tabs */}
+      <div className="max-w-4xl mt-8">
+        <div className="flex justify-center mb-4 bg-[#FA8897]  py-1 rounded-md">
           <button
-            onClick={() => setActiveTab('paid')}
-            className={`px-4 py-2 mr-2 text-sm font-medium rounded-lg ${activeTab === 'paid' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+            onClick={() => setActiveTab("all")}
+            className={`px-2 py-2 text-sm font-medium rounded-full ${activeTab === "all" ? "bg-white" : "bg-[#FA8897] text-white"
+              }`}
           >
-            Paid Orders
+            All
           </button>
           <button
-            onClick={() => setActiveTab('unpaid')}
-            className={`px-4 py-2 text-sm font-medium rounded-lg ${activeTab === 'unpaid' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`}
+            onClick={() => setActiveTab("unpaid")}
+            className={`px-3 py-2 text-sm font-medium rounded-full ${activeTab === "unpaid" ? "bg-white" : "bg-[#FA8897] text-white"
+              }`}
           >
-            Unpaid Orders
+            Pending
           </button>
+          <button
+            onClick={() => setActiveTab("submit")}
+            className={`px-3 py-2 mr-2 text-sm font-medium rounded-full ${activeTab === "submit" ? "bg-white" : "bg-[#FA8897] text-white"
+              }`}
+          >
+            Completed
+          </button>
+          <button
+            onClick={() => setActiveTab("freezing")}
+            className={`px-3 py-2 mr-2 text-sm font-medium rounded-full ${activeTab === "freezing" ? "bg-white" : "bg-[#FA8897] text-white"
+              }`}
+          >
+            Freezing
+          </button>
+
         </div>
 
-        <div>
-          {activeTab === 'paid' && <CompletedOrders />}
-          {activeTab === 'unpaid' && <UnpaidOrders />}
+        {/* Order Details */}
+        <div className="mt-4">
+          {activeTab === "unpaid" && <UnpaidOrders />}
+          {activeTab === "submit" && <CompletedOrders />}
+          {activeTab === "all" && <AllOrder />}
+          {activeTab === "freezing" && <FreezingOrders />} {/* Add this line */}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

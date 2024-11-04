@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from './ProductCard/Loader';
+import Loader from './ProductCard/Loader'; // Assuming this is your loading component
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,7 +31,7 @@ const SignUpPage = () => {
       return;
     }
 
-    const { name, email, password, mobile , accountNumber } = formData;
+    const { name, email, password, mobile, accountNumber } = formData;
     setLoader(true);
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
@@ -39,125 +39,111 @@ const SignUpPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password, mobile , accountNumber }),
+        body: JSON.stringify({ name, email, password, mobile, accountNumber }),
       });
-      
+
       const data = await response.json();
       
       if (data.success) {
         toast.success("User registered successfully!");
         navigate('/'); // Redirect to login page after successful registration
-      }else{
-        if(data.msg === "Validation errors"){
-            toast.error(data.errors[0].msg || "Registration failed!");
-        }else{
-            toast.error(data.msg)
+      } else {
+        if (data.msg === "Validation errors") {
+          toast.error(data.errors[0].msg || "Registration failed!");
+        } else {
+          toast.error(data.msg);
         }
       }
-
     } catch (error) {
       toast.error("An error occurred during registration!");
-    }finally{
+    } finally {
       setLoader(false);
     }
   };
 
   return (
     <>
-    {loader && <Loader/>}
-    <div className="min-h-screen flex items-center justify-center gradient-bg pl-2 pr-2">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6" style={{ color: '#DB2252' }}>
-          Sign Up
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Name</label>
+      {loader && <Loader />}
+      <div className="min-h-screen flex items-center justify-center bg-white p-4">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <div className="text-[#ff4d6d] text-2xl font-bold mb-4">LOGO Here</div>
+          </div>
+            <h2 className="text-2xl font-bold text-[#ff4d6d] mb-6">Sign Up</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <input
               type="text"
               name="name"
+              placeholder="Enter Your Name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
               required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
             <input
               type="email"
               name="email"
+              placeholder="Enter Your Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
               required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Mobile Number</label>
             <input
               type="text"
               name="mobile"
+              placeholder="Enter Your Mobile Number"
               value={formData.mobile}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
               required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Account Number</label>
             <input
               type="text"
               name="accountNumber"
+              placeholder="Enter Your Account Number"
               value={formData.accountNumber}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
               required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
             <input
               type="password"
               name="password"
+              placeholder="Enter Your Password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
               required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">Confirm Password</label>
             <input
               type="password"
               name="confirmPassword"
+              placeholder="Confirm Your Password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full px-3 py-2 border rounded-md"
               required
+              className="w-full px-3 py-2 bg-[#e8e8e8] rounded-md"
             />
-          </div>
-          <div className="flex justify-between items-center mb-6">
             <button
               type="submit"
-              className="w-full bg-[#DB2252] text-white px-4 py-2 rounded-md hover:bg-[#b91c46] transition duration-300"
+              className="w-full bg-[#ff4d6d] text-white py-2 rounded-md hover:bg-[#ff3c5c] transition-colors"
             >
               Sign Up
             </button>
-          </div>
-          <div className="text-center">
+          </form>
+          <p className="text-center text-sm">
+            Already have an account?{' '}
             <button
-              type="button"
-              className="text-[#DB2252] hover:underline"
+              className="text-green-500 hover:underline"
               onClick={() => navigate('/login')}
             >
-              Already have an account? Login
+              Login
             </button>
-          </div>
-        </form>
+          </p>
+        </div>
         <ToastContainer />
       </div>
-    </div>
     </>
   );
 };

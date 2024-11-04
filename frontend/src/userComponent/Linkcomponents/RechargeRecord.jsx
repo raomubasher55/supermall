@@ -71,7 +71,7 @@ export default function RechargeRecord() {
 
   return (
     <div className='flex flex-col items-center bg-white'>
-        <div className='fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl'>
+        <div className='fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl'>
                 <Link to={'/user'}>
                 <SlArrowLeft className='cursor-pointer' />
                 </Link>
@@ -97,7 +97,7 @@ export default function RechargeRecord() {
                                 <div className='flex justify-between items-center p-3 h-auto border-t border-t-gray-200 border-b border-b-gray-200'>
                                    <div>
                                    <h1>{ele.number}</h1>
-                                       <p className='text-white bg-[#61ABFF] recharge-data rounded-3xl text-center mt-2 text-[9px] w-max'>{ele.notic}</p>
+                                       <p className='text-white bg-color recharge-data rounded-3xl text-center mt-2 text-[9px] w-max'>{ele.notic}</p>
                                    </div>
                    
                                    <h1 className='text-green-600 font-medium'>{ele.amount}</h1>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardArrowRight, MdNotificationsActive } from "react-icons/md";
 import { GoArrowUpRight } from "react-icons/go";
 import { TbUsersGroup } from "react-icons/tb";
 import { MdLibraryAdd } from "react-icons/md";
@@ -14,6 +14,8 @@ import { IoLayers } from "react-icons/io5";
 import Userdetail from './Userdetail';
 import Menu from '../components/Menu'
 import { Link, useNavigate } from 'react-router-dom';
+import { CiMoneyBill } from "react-icons/ci";
+import { SlArrowLeft } from 'react-icons/sl';
 
 
 export default function User() {
@@ -50,11 +52,15 @@ export default function User() {
    return (
 
       <div className='w-full h-auto bg-white flex flex-col justify-center mt-20'>
-         <div className='fixed left-0 top-0 top-notify w-full h-[65px] bg-[rgba(255,255,255,0.75)]  flex justify-end items-center'>
-            <Link to={'/notify'}>
-               <IoMdNotificationsOutline className='text-3xl mr-8' />
+         <div className="fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center px-4 text-xl z-10">
+            <div onClick={() => navigate(-1)}>
+              <SlArrowLeft className="cursor-pointer" />
+            </div>
+            <h1 className="text-lg">ACCOUNT</h1>
+            <Link to="/notify">
+              <MdNotificationsActive className="cursor-pointer" />
             </Link>
-         </div>
+          </div>
 
 
          {/* user data  */}
@@ -72,12 +78,15 @@ export default function User() {
             {/* link 1  */}
 
             <Link to={'/withdraw'}>
-               <div className='flex justify-between items-center w-full h-[70px] shadow-md links cursor-pointer text-[#E91E63] p-2'>
-                  <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <GoArrowUpRight />
+               <div className='flex justify-between items-center w-full h-[70px]  border-pink-200 border-2 rounded-md  shadow-md links cursor-pointer text-[#E91E63] p-2'>
+                  <div className='w-auto h-full flex justify-between items-center '>
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <CiMoneyBill className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Withdraw</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Withdraw</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Transfer to bank</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -86,37 +95,46 @@ export default function User() {
 
             {/* link 2  */}
 
-            <Link to={'/all-orders'} className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2' a>
+            <Link to={'/all-orders'} className='flex justify-between items-center w-full border-pink-200 border-2 rounded-md h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2' a>
                <div className='w-auto h-full flex justify-between items-center'>
-                  <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                     <IoLayers  />
+                  <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                     <IoLayers className='text-white text-3xl' />
                   </div>
-                  <h1 className='ml-3 font-medium'>Orders</h1>
+                  <div className='flex flex-col  '>
+                  <h1 className='ml-3 text-md'>Orders</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>View Order</h1>
+                     </div>
                </div>
 
                <MdKeyboardArrowRight className='text-2xl' />
             </Link>
-            
 
-            <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2' onClick={alertMessage}>
+
+            <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2' onClick={alertMessage}>
                <div className='w-auto h-full flex justify-between items-center'>
-                  <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                     <TbUsersGroup />
+                  <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                     <TbUsersGroup className='text-white text-3xl' />
                   </div>
-                  <h1 className='ml-3 font-medium'>Team Report</h1>
+                  <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Tem Report</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>View your team's activity</h1>
+                     </div>
                </div>
 
-               <MdKeyboardArrowRight className='text-2xl' />
+               <MdKeyboardArrowRight className='text-2xl  ' />
             </div>
 
             {/* link 3  */}
             <Link to={'/rechargerecord'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <MdLibraryAdd />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <MdLibraryAdd className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Recharge Record</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Recharge Record</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Check past recharge records</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -126,27 +144,33 @@ export default function User() {
             {/* link 4  */}
 
             <Link to={'/withdrawrecord'}>
-              <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                        <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                           <MdLibraryAddCheck />
-                        </div>
-                        <h1 className='ml-3 font-medium'>Withdraw Record</h1>
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <MdLibraryAddCheck className='text-white text-3xl' />
+                     </div>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Withdraw Record</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>View past withdraw history</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
-             </div> 
+               </div>
 
 
-             </Link> 
+            </Link>
             {/* link 5  */}
             <Link to={'/accountdetail'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <TbArrowsExchange />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <TbArrowsExchange className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Account Details</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Account Details</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Manage your account information</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -154,12 +178,15 @@ export default function User() {
             </Link>
             {/* link 6  */}
             <Link to={'/notify'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <IoMdNotificationsOutline />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <IoMdNotificationsOutline className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Message</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Message</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Check your Message</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -168,12 +195,15 @@ export default function User() {
 
             {/* link 7  */}
             <Link to={'/address'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <FaAddressCard />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <FaAddressCard className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Recieving Address</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Recieving Address</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Manage your Address</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -182,12 +212,15 @@ export default function User() {
 
             {/* link  8*/}
             <Link to={'/bankform'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <FaAddressCard />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <FaAddressCard className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Bind Bank Card</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Bind Bank Card</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Add or edit bank card details</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -198,12 +231,15 @@ export default function User() {
 
             {/* link  9*/}
             <Link to={'/changepassword'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <IoMdUnlock />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <IoMdUnlock className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Change Passowrd</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Change Password</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Update your password</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -212,12 +248,15 @@ export default function User() {
 
             {/* link  10*/}
             <Link to={'/passwordwithdraw'}>
-               <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+               <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                   <div className='w-auto h-full flex justify-between items-center'>
-                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                        <IoMdUnlock />
+                     <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                        <IoMdUnlock className='text-white text-3xl' />
                      </div>
-                     <h1 className='ml-3 font-medium'>Modify The Withdraw Passowrd</h1>
+                     <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Modify The Withdraw Password</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Change withdraw PIN</h1>
+                     </div>
                   </div>
 
                   <MdKeyboardArrowRight className='text-2xl' />
@@ -226,12 +265,15 @@ export default function User() {
 
             {/* link  11*/}
 
-            <div className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+            <div className='flex justify-between items-center w-full h-[70px] border-pink-200 border-2 rounded-md mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                <div className='w-auto h-full flex justify-between items-center'>
-                  <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-md flex justify-center items-center text-xl'>
-                     <TbWorld />
+                  <div className='w-[50px] h-[50px] bg-[#F4BDCB] rounded-full flex justify-center items-center text-xl'>
+                     <TbWorld className='text-white text-3xl' />
                   </div>
-                  <h1 className='ml-3 font-medium'>Select Language</h1>
+                  <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Select Language</h1>
+                        <h1 className='ml-3 font-medium text-[#8f7f3b]'>Chosse app language</h1>
+                     </div>
                </div>
 
                <MdKeyboardArrowRight className='text-2xl' />
@@ -240,12 +282,14 @@ export default function User() {
 
             {/* link  12*/}
 
-            <div onClick={()=>{navigate('/login'); localStorage.clear('token')}} className='flex justify-between items-center w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
+            <div onClick={() => { navigate('/login'); localStorage.clear('token') }} className='flex justify-between items-center border-pink-200 border-2 rounded-md w-full h-[70px] mt-1 shadow-md links cursor-pointer text-[#E91E63] p-2'>
                <div className='w-auto h-full flex justify-between items-center'>
-                  <div className='w-[50px] h-[50px] bg-[#f3ecee] rounded-md flex justify-center items-center text-xl'>
+                  <div className='w-[50px] h-[50px] bg-[#f3ecee] rounded-full flex justify-center items-center text-xl'>
                      <FaPowerOff />
                   </div>
-                  <h1 className='ml-3 font-medium'>Exit</h1>
+                  <div className='flex flex-col  '>
+                        <h1 className='ml-3 text-md'>Exit</h1>
+                     </div>
                </div>
 
                <MdKeyboardArrowRight className='text-2xl' />

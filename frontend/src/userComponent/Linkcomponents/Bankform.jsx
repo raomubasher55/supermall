@@ -124,7 +124,7 @@ const BankForm = () => {
     <>
     {loader && <Loader/>}
     <div className='flex flex-col items-center bg-white overflow-hidden'>
-      <div className='fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl'>
+      <div className='fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl'>
         <Link to={'/user'}>
           <SlArrowLeft className='cursor-pointer' />
         </Link>
@@ -139,7 +139,7 @@ const BankForm = () => {
 
         <form className='flex flex-wrap justify-between items-center'>
           <select
-            className="mb-4 w-[100%] md:w-[48%] relative form-control rounded-3xl"
+            className="mb-4 w-[100%] md:w-[48%] relative form-control rounded-lg"
             id="bankName"
             value={formValues.bankName}
             onChange={handleInputChange}
@@ -170,7 +170,7 @@ const BankForm = () => {
               <input
                 id={field}
                 type={field === 'password' ? 'password' : 'text'}
-                className={`border rounded-3xl w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                className={`border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                 value={formValues[field]}
                 onChange={handleInputChange}
                 onFocus={() => handleFocus(field)}
@@ -181,7 +181,7 @@ const BankForm = () => {
 
           <div className="flex items-center justify-center w-[100%]">
             <button
-              className="bg-pink-600 w-[100%] h-[50px] mt-3 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
+              className="bg-color w-[100%] h-[50px] mt-3 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
               type="button"
               onClick={handleSubmit}
             >

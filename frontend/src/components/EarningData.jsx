@@ -1,3 +1,4 @@
+import { FaRegUser } from "react-icons/fa";
 import React, { useState, useEffect } from 'react';
 
 // Function to generate a random alphanumeric string like '9a**34'
@@ -21,7 +22,7 @@ const generateData = (count) => {
   for (let i = 0; i < count; i++) {
     const leftSide = generateRandomNumber();
     const center = generateRandomAmount();
-    const rightSide = 'earning today';
+    const rightSide = 'Earning Today';
     data.push({
       left: leftSide,
       center: center,
@@ -55,13 +56,18 @@ const EarningData = () => {
         {items.map((item, index) => (
           <li
             key={index}
-            className={`h-20 flex items-center justify-between shadow-md mt-3 px-4 ₹{
+            className={`h-20 flex items-center justify-between bg-[#FAF0F5] border border-[#76636c] shadow-md mt-3 px-4 ₹{
               index >= 5 ? 'hidden' : '' // Hide items beyond the first 5
             }`}
-          >
-            <span>{item.left}</span>
-            <span>{item.center}</span>
-            <span>{item.right}</span>
+          > 
+          <div>
+          <FaRegUser  className="bg-[#ecbed5] p-2 text-4xl rounded-lg" />
+          </div>
+            <div className='flex md:flex-row flex-col' >
+              <span className="text-lg font-bold">{item.left}</span>
+              <span className="text-lg text-pink-600">{item.right}</span>
+            </div>
+            <div className='text-lg' >{item.center}</div>
           </li>
         ))}
       </ul>

@@ -17,11 +17,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,   
     },
-    // category: {
-    //     type: mongoose.Schema.Types.ObjectId, // Correctly reference ObjectId
-    //     ref: 'Category', // Reference to Category model
-    //     required: true, // Ensure this field is required if necessary
-    // },
+
     image: {
         type: String,
         required: true,

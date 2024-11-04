@@ -49,7 +49,7 @@ const Task = () => {
     setInvestmentStarted(true);
     saveInvestmentPlan(amount, bonus);
     if (amount == 100) {
-      setShowModal(true)
+      setShowModal(true);
       setOrderDetail({
         success: true,
         order_id: uuidv4(),
@@ -89,7 +89,7 @@ const Task = () => {
         name: "brown shoes sneakers",
         commission: 0.02 * 500,
         price: 500
-      })
+      });
       setSwiperSlider(true);
       setSwiperSlider_2(false);
       setSwiperSlider_3(false);
@@ -228,7 +228,7 @@ const Task = () => {
         const result = await response.json();
 
         const maxTaskNumber = result.orders.reduce((max, order) => order.task > max ? order.task : max, 0);
-        setTask(maxTaskNumber)
+        setTask(maxTaskNumber);
               
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -248,7 +248,7 @@ const Task = () => {
       <div className="flex flex-col items-center ">
         {error && <div className="error-message text-red-600 mt-24 text-2xl">{error}</div>}
 
-        <div className="fixed left-0 top-0 w-full h-[55px] z-10 bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl">
+        <div className="fixed left-0 top-0 w-full h-[55px] z-10 bg-color text-white flex justify-between items-center p-4 text-xl">
           <div onClick={() => navigate(-1)}>
             <SlArrowLeft className="cursor-pointer" />
           </div>
@@ -272,7 +272,7 @@ const Task = () => {
             <p className="text-xl font-semibold mb-4">Invest: ₹100</p>
             <p className="text-xl font-semibold mb-4">Daily Bonus: ₹2</p>
             <button
-              className="bg-[#DB2252] hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
+              className="bg-color  hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
               onClick={() => {
                 handleInvestment(100, 2)  
               }}
@@ -281,7 +281,7 @@ const Task = () => {
             </button> 
           </div>
 
-          <div className={`p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center ${task >= 1 ? "" : "opacity-0 pointer-events-none pointer-events-none"} `}>
+          <div className={`p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center ${task >= 1 ? "" : "hidden  pointer-events-none"} `}>
             <h3 className="text-xl font-semibold mb-2">Growth Plan</h3>
             <p className="text-gray-600 mb-4 text-center">
               Accelerate your returns with a higher initial investment. This plan is designed for those who are looking to significantly grow their wealth over a shorter period. With an investment of ₹300, you will receive a daily bonus of ₹6, compounding your returns faster.
@@ -289,14 +289,14 @@ const Task = () => {
             <p className="text-xl font-semibold mb-4">Invest: ₹300</p>
             <p className="text-xl font-semibold mb-4">Daily Bonus: ₹6</p>
             <button
-              className="bg-[#DB2252] hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
+              className="bg-color hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
               onClick={() => handleInvestment(300, 6)}
             >
               Choose Plan
             </button>
           </div>
 
-          <div className={`p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center ${task >= 2 ? "" : "opacity-0 pointer-events-none pointer-events-none"} `}>
+          <div className={`p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center ${task >= 2 ? "" : "hidden  pointer-events-none"} `}>
             <h3 className="text-xl font-semibold mb-2">Premium Plan</h3>
             <p className="text-gray-600 mb-4 text-center">
               Maximize your earnings potential with our highest returns. Ideal for serious investors, the Premium Plan offers the best daily returns on your investment. By investing ₹500, you will receive a daily bonus of ₹10, ensuring substantial growth of your portfolio.
@@ -304,14 +304,14 @@ const Task = () => {
             <p className="text-xl font-semibold mb-4">Invest: ₹500</p>
             <p className="text-xl font-semibold mb-4">Daily Bonus: ₹10</p>
             <button
-              className="bg-[#DB2252] hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
+              className="bg-color hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
               onClick={() => handleInvestment(500, 10)}
             >
               Choose Plan
             </button>
           </div>
 
-          <div className={`p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center ${task >= 3 ? "" : "opacity-0 pointer-events-none pointer-events-none"} `}>
+          <div className={`p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center ${task >= 3 ? "" : "hidden pointer-events-none "} `}>
             <h3 className="text-xl font-semibold mb-2">Custom Plan</h3>
             <p className="text-gray-600 mb-4 text-center">
               Define your investment amount for a personalized plan. Our Custom Plan allows you to choose your investment amount, tailored to your financial capabilities and goals. Enjoy a 2% daily bonus on your custom amount, compounding daily to enhance your returns.
@@ -324,14 +324,14 @@ const Task = () => {
               onChange={handleChangeCustomAmount}
             />
             <button
-              className="bg-[#DB2252] hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
+              className="bg-color hover:bg-[#FF3366] text-white py-2 px-4 rounded-md transition duration-300"
               onClick={handleCustomInvestment}
             >
               Customize Plan
             </button>
           </div>
         </div>
-
+{/* 
         {swiperSlider &&
           <div className='my-2 card'>
             <ProductCard />
@@ -347,7 +347,7 @@ const Task = () => {
           <div className="my-2 card">
             <ProductCard_3 />
           </div>
-        }
+        } */}
 
 
         <div id="investment-details" className="container mx-auto mt-6 p-6 bg-white rounded-lg shadow flex flex-col items-center justify-center">
@@ -372,7 +372,7 @@ const Task = () => {
 
 
 
-        <footer className="w-full bg-[#DB2252] text-white py-4 mt-12">
+        <footer className="w-full bg-color text-white py-4 mt-12">
           <div className="container mx-auto">
             <p className="text-xl font-semibold text-center">Investment Guidance</p>
             <p className="text-sm mb-2 mt-10">
@@ -405,7 +405,6 @@ const Task = () => {
           </div>
           {/* <OrderDetailsModal/> */}
           {showModal && <OrderDetailsModal  orderDetail={orderDetail} setShowModal={setShowModal} />}
-          
         </footer>
         <ToastContainer />
       </div>

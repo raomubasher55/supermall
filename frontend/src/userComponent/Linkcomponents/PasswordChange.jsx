@@ -40,7 +40,7 @@ export default function PasswordChange() {
 
     return (
         <div className='flex flex-col items-center bg-white'>
-            <div className='fixed left-0 top-0 w-full h-[55px] bg-[#DB2252] text-white flex justify-between items-center p-4 text-xl'>
+            <div className='fixed left-0 top-0 w-full h-[55px] bg-color text-white flex justify-between items-center p-4 text-xl'>
                 <Link to='/user'>
                     <SlArrowLeft className='cursor-pointer text-md' />
                 </Link>
@@ -50,7 +50,7 @@ export default function PasswordChange() {
                 </Link>
             </div>
 
-            <h1 className='mt-[100px] text-2xl font-medium mb-10'>Change Password</h1>
+            <h1 className='mt-[100px] text-2xl font-medium mb-10 text-wrap'>Modify The Withdraw Password </h1>
 
             {['old password', 'new password', 'confirm password'].map(field => (
                 <div className="mb-4 w-[90%] md:w-[350px] mt-2 relative" key={field}>
@@ -65,7 +65,7 @@ export default function PasswordChange() {
                     <input
                         id={field}
                         type={field === 'confirm password' ? 'password' : 'text'}
-                        className={`border rounded-3xl h-[45px] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                        className={`border rounded-lg h-[45px] w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                         value={formValues[field]}
                         onChange={handleInputChange}
                         onFocus={() => handleFocus(field)}
@@ -77,7 +77,7 @@ export default function PasswordChange() {
             <div className="flex items-center justify-center w-[330px]">
                 <Link to='/user'>
                     <button
-                        className={`bg-pink-600 w-[300px] md:w-[350px] h-[50px] mt-3 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline ${!allFieldsFilled && 'opacity-50 cursor-not-allowed'}`}
+                        className={`bg-color w-[300px] md:w-[350px] h-[50px] mt-3 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline ${!allFieldsFilled && 'opacity-50 cursor-not-allowed'}`}
                         type="button"
                         disabled={!allFieldsFilled}
                     >

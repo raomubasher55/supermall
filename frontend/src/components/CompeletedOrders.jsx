@@ -11,7 +11,7 @@ const CompletedOrders = () => {
     const fetchOrders = async () => {
       try {
         setLoader(true)
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/product/orders?status=paid` , {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/order/all-order?status=paid` , {
           method:"GET",
           headers:{
             "Content-Type": "application/json",
@@ -41,28 +41,64 @@ const CompletedOrders = () => {
     <h1 className="text-2xl font-bold text-gray-800 mb-6">Completed Orders</h1>
 
     {orders.length > 0 ? (
-      orders.map((order) => (
-        <div
-          key={order._id}
-          className="flex flex-col items-center p-4 bg-white shadow-md rounded-lg mb-4 border border-gray-200"
-        >
-          <div className="flex items-center justify-between w-full mb-2">
-            <span className="text-gray-600 text-sm">{order.createdAt ? new Date(order.createdAt).toLocaleString() : 'Date not available'}</span>
-            <span className={`text-xs font-semibold px-2 py-1 rounded ${order.status === 'paid' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
+      orders.map((order , index) => (
+        <div key={index} className="bg-white rounded-lg shadow-lg p-4 mb-4">
+        <div className="space-y-4">
+          {/* Order Date and Status */}
+          <div className="flex justify-between text-sm text-gray-500">
+            <span>{order.createdAt ? new Date(order.createdAt).toLocaleString() : 'Date not available'}</span>
+            <span
+              className={`bg-green-400 text-white px-2 py-1 rounded-full text-xs font-semibold ${
+                order.status === 'paid' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+              }`}
+            >
               {order.status}
             </span>
           </div>
-          <div className="flex items-center mb-4 w-full">
-            <img src={order.image || "https://placehold.co/80x80"} alt={order.productName} className="mr-2 rounded w-[15%] md:w-[10%]" />
-            <div className="text-gray-600 font-semibold">{order.productName}</div>
+  
+          {/* Product Image and Name */}
+          <div className="flex items-center space-x-4">
+            <img
+              src={order.image || 'https://placehold.co/80x80'}
+              alt={order.productName}
+              className="w-16 h-16 object-cover rounded"
+            />
+            <div className="flex-1">
+              <h3 className="font-semibold">{order.productName}</h3>
+              <p className="text-sm text-gray-500">97 x 6</p>
+            </div>
+            <span className="bg-pink-100 text-pink-800 px-2 py-1 rounded-full text-xs font-semibold">
+              {/* {order.status === 'submitted' ? 'Submitted' : 'Pending'} */}
+            </span>
           </div>
-          <div className="w-full border-t border-gray-200 py-2">
+  
+          {/* Order Details */}
+          <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">Total order:</span>
-              <span className="text-green-600 font-semibold">₹{order.amount}</span>
+              <span>Order Total</span>
+              <span className="font-semibold">₹{order.amount}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Commission</span>
+              <span className="font-semibold">₹{order.commission || '0'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Frozen Amount</span>
+              <span className="font-semibold">₹{order.frozenAmount || '0'}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Current Progress</span>
+              <span className="font-semibold">{order.currentProgress || '0/0'}</span>
             </div>
           </div>
+  
+          {/* Task Time Limit */}
+          <div className="flex justify-between text-sm">
+            <span>Task Time Limit</span>
+            <span className="text-blue-500 font-semibold">{order.timeLimit || '00:00:00'}</span>
+          </div>
         </div>
+      </div>
       ))
     ) : (
       <p className="text-lg text-gray-500">No completed orders found.</p>

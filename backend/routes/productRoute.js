@@ -71,11 +71,13 @@ router.get("/search/:keyword", productController.searchProducts);
 router.post('/checkout',isLogined ,productController.createPayment);
 
 router.post('/update-purchase' , productController.updatePurchase);
+router.post('/update-purchase' , productController.updatePurchase);
 
 router.get('/orders' , isLogined, productController.getAllOrder);
+router.get('/allPurchase' , isLogined, productController.getAllPurchase);
 router.post('/withdraw' ,isLogined , productController.withdraw);
 
-
+ 
 
 
 
