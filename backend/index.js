@@ -18,6 +18,13 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use(express.json());
 app.use(express.static('public'));
 
+app.get('/', (req,res)=>{
+  res.json({
+    success : true,
+    message: "Hello world"
+  })
+})
+
 // CORS setup: allow specific origins based on environment
 const corsOptions = {
   origin: ['https://supermall.digital' , 'http://localhost:5173/login'], // Only allow this origin
